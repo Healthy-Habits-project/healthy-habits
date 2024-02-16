@@ -1,6 +1,26 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+/* DON'T TOUCH THIS IS FOR THE THEMES */
+
+:root {
+  --primary-color: var(--ion-color-primary);
+  --secondary-color: var(--ion-color-secondary);
+  /* Add other common styles here */
+}
+
+:root([data-theme='light']) {
+  --ion-color-primary: #3498db;
+  --ion-color-secondary: #2ecc71;
+  /* Add other light theme styles here */
+}
+
+:root([data-theme='dark']) {
+  --ion-color-primary: #2c3e50;
+  --ion-color-secondary: #e74c3c;
+  /* Add other dark theme styles here */
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

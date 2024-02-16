@@ -1,20 +1,22 @@
+// Tab3.tsx
 import React, { useState } from 'react';
 import { IonButton, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab3.css';
+import { ThemeProvider, useTheme } from './themeProvider';
+
+type Theme = 'light' | 'dark' | 'system';
 
 const Tab3: React.FC = () => {
   const [name, setName] = useState('');
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system'); // State for theme selection
+  const { theme, setTheme } = useTheme(); // Destructure the context object
 
   const handleSave = () => {
     console.log('LOG: Saving app data, set name to:', name);
     // Save settings here
   };
 
-  const handleThemeChange = (selectedTheme: 'light' | 'dark' | 'system') => {
-    console.log('LOG: Changing theme to:', selectedTheme);
+  const handleThemeChange = (selectedTheme: Theme) => {
     setTheme(selectedTheme);
-    // Implement theme change logic here, for example, by updating a global state or applying a class to the body
   };
 
   const resetAppData = () => {
@@ -41,7 +43,7 @@ const Tab3: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel>Theme</IonLabel>
-            <IonSelect value={theme} placeholder="Select One" onIonChange={e => handleThemeChange(e.detail.value)}>
+            <IonSelect value={theme} placeholder="Select One" onIonChange={(e: CustomEvent) => handleThemeChange(e.detail.value as Theme)}>
               <IonSelectOption value="light">Light</IonSelectOption>
               <IonSelectOption value="dark">Dark</IonSelectOption>
               <IonSelectOption value="system">System</IonSelectOption>
