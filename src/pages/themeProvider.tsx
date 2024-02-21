@@ -1,6 +1,6 @@
 // ThemeProvider.tsx
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
-import 'src/theme/variables.css';
+import '../theme/variables.css';
 
 type Theme = 'light' | 'dark' | 'system';
 
