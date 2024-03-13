@@ -1,0 +1,32 @@
+/* Add this CSS to your global styles file or your component's CSS file */
+.custom-modal {
+    --background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  }
+  
+  .custom-modal ion-modal {
+    --min-width: unset; /* Remove minimum width */
+    --max-width: 80%; /* Set maximum width */
+    --min-height: unset; /* Remove minimum height */
+    --max-height: unset; /* Remove maximum height */
+  }
+  
+  .custom-modal ion-modal ion-content {
+    background: transparent; /* Transparent background */
+    padding: 0; /* Remove padding */
+  }
+  
+  .custom-modal ion-modal ion-grid {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px; /* Rounded corners */
+  }
+  .selected-rating {
+    background-color: #007bff; /* Blue background for selected rating */
+    color: white; /* White text color for selected rating */
+  }
+  
+  .unselected-rating {
+    background-color: transparent; /* Transparent background for unselected rating */
+    color: black; /* Black text color for unselected rating */
+  }
+  
+  
