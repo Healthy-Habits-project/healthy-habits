@@ -40,35 +40,37 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
   // Define the state for holding the progress data of the selected day
   const [selectedDayProgress, setSelectedDayProgress] = useState<ProgressData | null>(null);
 
-  // Assuming selectedDay and selectedDayProgress are already defined in your state
-  const handleDayClick = (formattedDay: string) => {
-    // Convert the formattedDay string back to a Date object for comparison
-    const clickedDate = new Date(formattedDay);
-    const today = new Date();
+  useEffect(() => {
+    // Automatically select the current day and load its progress data
+    const today = format(new Date(), 'yyyy-MM-dd');
+    setSelectedDay(today);
+    loadProgressData(today);
+  }, []);
 
-    // Ensure the clicked date is set to the start of the day for accurate comparison
-    clickedDate.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
-
-    // Determine if the clicked day is today or in the past (making it eligible for rating)
-    const isEligibleForRating = clickedDate <= today;
-
-    if (isEligibleForRating) {
-      onDaySelect(formattedDay);
-
-      const healthDataByDate = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
-      const dayData = healthDataByDate[formattedDay];
-
-      if (dayData) {
-        // Assuming dayData already contains the percentage properties
-        setSelectedDay(formattedDay);
-        setSelectedDayProgress(dayData);
-      } else {
-        console.log(`No health data available for ${formattedDay}.`);
-        setSelectedDayProgress(null);
-      }
+  // Function to load progress data for a specific day
+  const loadProgressData = (date: string) => {
+    const healthDataByDate = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
+    const dayData = healthDataByDate[date];
+    if (dayData) {
+      setSelectedDayProgress(dayData);
+    } else {
+      setSelectedDayProgress(null);
     }
   };
+
+  // Function to handle day click
+  const handleDayClick = (formattedDay: string) => {
+    onDaySelect(formattedDay);
+    setSelectedDay(formattedDay);
+    loadProgressData(formattedDay);
+  };
+
+  // Effect to update progress data when it changes externally (e.g., when checkboxes are checked)
+  useEffect(() => {
+    if (selectedDay) {
+      loadProgressData(selectedDay);
+    }
+  }, [progressData]);
 
 
   const MAX_CHECKBOXES = {
@@ -77,6 +79,19 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
     nutrition: 4,
     sleep: 10,
   };
+
+  useEffect(() => {
+    // Automatically select the current day and load its progress data
+    const today = format(new Date(), 'yyyy-MM-dd');
+    setSelectedDay(today);
+    const healthDataByDate = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
+    const dayData = healthDataByDate[today];
+    if (dayData) {
+      setSelectedDayProgress(dayData);
+    } else {
+      setSelectedDayProgress(null);
+    }
+  }, []);
 
 
   const saveHealthData = (data: ProgressData, date: string) => {
@@ -156,14 +171,14 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
+  
     const healthDataByDate = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
-
+  
     const rows = [];
     let days = [];
     let day = startDate;
     const today = new Date();
-
+  
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         const formattedDay = format(day, "yyyy-MM-dd");
@@ -188,17 +203,11 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
           const ratingColor = getColorForRating(dayRating);
           cellStyle.backgroundColor = ratingColor;
         }
-
+  
         const renderProgressBars = (progressData: ProgressData | null) => {
           if (!progressData) {
             return null; // No progress data for this day.
           }
-          // Calculate percentage of checked items for each category
-          const mentalHealthPercentage = (progressData.mentalHealthCheckedCount / MAX_CHECKBOXES.mentalHealth) * 100;
-          const physicalHealthPercentage = (progressData.physicalHealthCheckedCount / MAX_CHECKBOXES.physicalHealth) * 100;
-          const nutritionPercentage = (progressData.nutritionCheckedCount / MAX_CHECKBOXES.nutrition) * 100;
-          const sleepPercentage = (progressData.sleepCheckedCount / MAX_CHECKBOXES.sleep) * 100;
-          const barHeight = '25%';
           return (
             <div style={{
               position: 'absolute',
@@ -229,7 +238,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
                 width: `${progressData.sleepPercentage || 0}%`,
                 backgroundColor: '#5d7bd5'
               }}></div>
-
+  
             </div>
           );
         };
@@ -239,13 +248,9 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
             key={day.toString()}
             style={cellStyle}
             onClick={() => handleDayClick(formattedDay)}
-
-
           >
             {format(day, "d")}
-            {selectedDay === formattedDay && selectedDayProgress && renderProgressBars(selectedDayProgress)}
-
-
+            {(selectedDay === formattedDay || (isTodayFlag && day === today)) && dayHealthData && renderProgressBars(dayHealthData)}
           </div>
         );
         day = addDays(day, 1);
@@ -253,9 +258,11 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
       rows.push(<div className="row" key={day.toString()}>{days}</div>);
       days = [];
     }
-
+  
     return <div className="body">{rows}</div>;
   };
+  
+  
 
 
   const nextMonth = () => {
