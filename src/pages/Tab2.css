@@ -28,5 +28,10 @@
     background-color: transparent; /* Transparent background for unselected rating */
     color: black; /* Black text color for unselected rating */
   }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.21); }
+    100% { transform: scale(1); }
+  }
   
   

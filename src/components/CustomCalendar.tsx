@@ -1,4 +1,3 @@
-// CustomCalendar.tsx
 import React, { useState, useEffect } from 'react';
 import {
   format,
@@ -32,6 +31,7 @@ interface CustomCalendarProps {
   onDaySelect: (date: string) => void;
   calculatedColor: string;
   progressData: ProgressData; // Use the defined ProgressData type here
+  style?: React.CSSProperties;
 }
 
 const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect, calculatedColor, progressData }) => {
@@ -194,14 +194,15 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
           opacity: 1,
           position: 'relative',
           backgroundColor: isEligibleForRating ? 'white' : '#929693',
-          border: '1px solid #ddd', // Default border color
+          border: '2px solid #b0b0b0', // Default border color
         };
         if (isTodayFlag) {
-          cellStyle.border = `6px solid ${calculatedColor}`;
+          cellStyle.border = `5px solid ${calculatedColor}`;
         }
         if (dayRating) {
           const ratingColor = getColorForRating(dayRating);
           cellStyle.backgroundColor = ratingColor;
+          cellStyle.border = `4px solid ${ratingColor}`; // Set border color to the rating color
         }
   
         const renderProgressBars = (progressData: ProgressData | null) => {

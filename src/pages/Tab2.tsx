@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonGrid, IonRow, IonCol, IonModal, IonImg } from '@ionic/react';
 import CustomCalendar from '../components/CustomCalendar'; // Make sure this path is correct
 import { format } from 'date-fns';
 import badgeImage from '/badges/badge1.png'; // Ensure this path points to your badge image
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
+
+
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -58,16 +60,34 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Rate Your Day</IonTitle>
+          <IonTitle class="ion-text-center" style={{ fontSize: '1.8em', fontWeight: 'bold', color: '#007bff' }}>Rate Your Day</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {!ratingMode && (
-          <IonButton onClick={() => setRatingMode(true)}>Rate</IonButton>
-        )}
-        {ratingMode && (
-          <IonButton onClick={() => setRatingMode(false)}>Cancel</IonButton>
-        )}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          {!ratingMode && (
+            <IonButton
+              expand="block"
+              size="large"
+              color="primary"
+              style={{ fontSize: '1.2em', fontWeight: 'bold', marginRight: '10px' }}
+              onClick={() => setRatingMode(true)}
+            >
+              Rate
+            </IonButton>
+          )}
+          {ratingMode && (
+            <IonButton
+              expand="block"
+              size="large"
+              color="medium"
+              style={{ fontSize: '1.2em', fontWeight: 'bold' }}
+              onClick={() => setRatingMode(false)}
+            >
+              Cancel
+            </IonButton>
+          )}
+        </div>
         <CustomCalendar
           dayRatings={dayRatings}
           onDaySelect={(date: string) => {
@@ -81,19 +101,23 @@ const Tab2: React.FC = () => {
             nutritionCheckedCount,
             sleepCheckedCount,
           }}
+          style={{ height: '80%' }} // Adjust the height of the calendar to fit the content area
         />
 
         <IonModal isOpen={showRatings} onDidDismiss={() => setShowRatings(false)} className="custom-modal">
-          <IonGrid>
+          <IonGrid style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <IonRow>
               {Array.from({ length: 10 }, (_, i) => 1 + i).map(number => (
-                <IonCol size="6" sizeSm="4" sizeMd="2" key={number}>
+                <IonCol size="4" sizeSm="3" sizeMd="2" key={number}>
                   <IonButton
                     expand="block"
                     style={{
-                      margin: '4px',
-                      backgroundColor: `hsl(${0 + (number - 1) * 12}, 100%, 50%)`, // Gradient from green to red
-                      color: 'white',
+                      margin: '8px',
+                      padding: '16px', // Increase padding to make buttons larger
+                      fontSize: '1.5em', // Increase font size for better clarity
+                      backgroundColor: selectedRating === number ? `hsl(${0 + (number - 1) * 12}, 100%, 60%)` : `hsl(${0 + (number - 1) * 12}, 100%, 50%)`, // Highlight selected button
+                      color: selectedRating === number ? 'white' : 'black', // Adjust text color for better visibility
+                      animation: selectedRating === number ? 'pop 0.5s ease' : 'none', // Add pop animation to highlight selected button
                       '--hover-opacity': 0.9,
                     }}
                     className={selectedRating === number ? 'selected-rating' : 'unselected-rating'}
@@ -105,7 +129,25 @@ const Tab2: React.FC = () => {
               ))}
             </IonRow>
           </IonGrid>
-          <IonButton onClick={handleRateDay}>Submit Rating</IonButton>
+          <IonButton
+            onClick={handleRateDay}
+            style={{
+              margin: '16px',
+              padding: '12px 24px',
+              fontSize: '1.2em',
+              fontWeight: 'bold',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s, transform 0.2s',
+              backgroundImage: 'linear-gradient(to right, #007bff, #00bfff)',
+            }}
+          >
+            Submit Rating
+          </IonButton>
         </IonModal>
       </IonContent>
 
@@ -122,6 +164,7 @@ const Tab2: React.FC = () => {
 };
 
 export default Tab2;
+
 
 
 
