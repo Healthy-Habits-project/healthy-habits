@@ -100,6 +100,11 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
       physicalHealthPercentage: (data.physicalHealthCheckedCount / MAX_CHECKBOXES.physicalHealth) * 100,
       nutritionPercentage: (data.nutritionCheckedCount / MAX_CHECKBOXES.nutrition) * 100,
       sleepPercentage: (data.sleepCheckedCount / MAX_CHECKBOXES.sleep) * 100,
+      mentalHealthColor: getColorForRating(data.mentalHealthCheckedCount),
+      physicalHealthColor: getColorForRating(data.physicalHealthCheckedCount),
+      nutritionColor: getColorForRating(data.nutritionCheckedCount),
+      sleepColor: getColorForRating(data.sleepCheckedCount),
+      
     };
 
     const existingData = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');

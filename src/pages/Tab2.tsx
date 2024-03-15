@@ -9,7 +9,8 @@ import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
-  const [dayRatings, setDayRatings] = useState<{ [key: string]: number }>({});
+  const savedRatings = JSON.parse(localStorage.getItem('dayRatings') || '{}');
+  const [dayRatings, setDayRatings] = useState<{ [key: string]: number }>(savedRatings);
   const [badgeCount, setBadgeCount] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState<string>(format(new Date(), "yyyy-MM-dd"));
   const { mentalHealthCheckedCount } = useGlobalCounts();
@@ -19,6 +20,7 @@ const Tab2: React.FC = () => {
   const [showRatings, setShowRatings] = useState<boolean>(false);
   const [ratingMode, setRatingMode] = useState<boolean>(false);
   const [selectedRating, setSelectedRating] = useState<number>(0); // Track selected rating
+
 
   const calculateColor = (
     physicalHealthCheckedCount: number,
@@ -44,6 +46,7 @@ const Tab2: React.FC = () => {
     // Save the rating for the selected date
     const updatedRatings = { ...dayRatings, [selectedDate]: selectedRating };
     setDayRatings(updatedRatings);
+    localStorage.setItem('dayRatings', JSON.stringify(updatedRatings));
 
     // Increment badge count if needed
     const highRatedDaysCount = Object.values(updatedRatings).filter(rating => rating >= 7).length;
