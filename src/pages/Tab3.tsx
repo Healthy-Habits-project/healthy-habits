@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonAlert,
   IonButton,
@@ -18,19 +18,29 @@ import {
 } from '@ionic/react';
 import './Tab3.css';
 import { useUser } from '../contexts/UserContext'; // Import useUser hook
-import { useEffect } from 'react';
-import '../theme/variables.css'
+import '../theme/variables.css';
 
 const Tab3: React.FC = () => {
   const [name, setName] = useState('');
   const { userName, setUserName } = useUser();
   const [saveClicked, setSaveClicked] = useState(false);
 
+  // Load the username from localStorage when the component mounts
+  useEffect(() => {
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setName(storedUserName); // Set the loaded name to the state
+      setUserName(storedUserName); // Update the context (if needed)
+    }
+  }, [setUserName]);
+
   useEffect(() => {
     if (saveClicked) {
+      // Save the username to localStorage
+      localStorage.setItem('userName', name);
+
       // Introduce a delay of 100 milliseconds (adjust as needed)
       const delayDuration = 100;
-
       const timeoutId = setTimeout(() => {
         setUserName(name);
         setSaveClicked(false);
@@ -52,7 +62,7 @@ const Tab3: React.FC = () => {
 
   const handleResetData = () => {
     console.log('LOG: Handling reset app data');
-    localStorage.clear();
+    localStorage.clear(); // This will also remove the userName, consider using localStorage.removeItem('userName') if you want to keep other stored data
     window.location.reload();
   };
 
@@ -88,7 +98,7 @@ const Tab3: React.FC = () => {
               <IonButton onClick={handleSave}>Save</IonButton>
               <IonButton id="present-alert">Reset</IonButton>
               <IonAlert
-              trigger="present-alert"
+                trigger="present-alert"
                 header="Reset Data"
                 message="Are you sure you want to reset the app data? This removes all saved data and settings. This action cannot be undone!"
                 buttons={[

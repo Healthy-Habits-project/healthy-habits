@@ -26,7 +26,14 @@ const Tab1: React.FC = () => {
   const { physicalHealthCheckedCount } = useGlobalCounts();
   const { nutritionCheckedCount } = useGlobalCounts();
   const { sleepCheckedCount } = useGlobalCounts();
-  const { userName } = useUser(); // Destructure the context object
+  const { userName, setUserName } = useUser();
+  useEffect(() => {
+    // Retrieve the username from localStorage when the component mounts
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setUserName(storedUserName); // Update the userName in your context
+    }
+  }, [setUserName]);
 
   // TODO: Replace hard-coded values with values calculated from the GlobalCountsContext, somehow.
   const totalPhysicalCheckboxes = 6;
