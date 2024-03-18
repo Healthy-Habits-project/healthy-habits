@@ -42,9 +42,13 @@ import './theme/variables.css';
 import { ThemeProvider } from './components/ThemeContext';
 import { CheckboxProvider } from './contexts/CheckboxContext';
 import { UserContextProvider } from './contexts/UserContext';
+
+import useTheme from './components/useTheme';
+
 setupIonicReact();
 
 const App: React.FC = () => (
+  useTheme(),
   <ThemeProvider>
     <CheckboxProvider>
       <GlobalCountsProvider>

@@ -24,13 +24,20 @@ const Tab3: React.FC = () => {
   const [name, setName] = useState('');
   const { userName, setUserName } = useUser();
   const [saveClicked, setSaveClicked] = useState(false);
+  const [theme, setTheme] = useState(''); // New state variable for theme
 
   // Load the username from localStorage when the component mounts
   useEffect(() => {
     const storedUserName = localStorage.getItem('userName');
+    const storedTheme = localStorage.getItem('theme'); // Load the theme
     if (storedUserName) {
       setName(storedUserName); // Set the loaded name to the state
       setUserName(storedUserName); // Update the context (if needed)
+    }
+
+    if (storedTheme) {
+      setTheme(storedTheme); // Set the loaded theme to the state
+      handleThemeChange(storedTheme); // Apply the loaded theme
     }
   }, [setUserName]);
 
@@ -53,11 +60,13 @@ const Tab3: React.FC = () => {
   const handleSave = () => {
     console.log('LOG: Saving app data, set name to:', name);
     setSaveClicked(true);
+    localStorage.setItem('theme', theme); // Save the theme to localStorage
   };
 
   const handleThemeChange = (selectedTheme: string) => {
     document.body.classList.remove('ion-color-light', 'ion-color-dark');
     document.body.classList.add(selectedTheme);
+    setTheme(selectedTheme); // Update the theme state variable
   };
 
   const handleResetData = () => {
