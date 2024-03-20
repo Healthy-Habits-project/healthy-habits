@@ -23,14 +23,6 @@ import { useUser } from '../contexts/UserContext'; // Import useUser hook
 const Tab1: React.FC = () => {
   const { mentalHealthCheckedCount, setMentalHealthCheckedCount, physicalHealthCheckedCount, setPhysicalHealthCheckedCount, nutritionCheckedCount, setNutritionCheckedCount, sleepCheckedCount, setSleepCheckedCount } = useGlobalCounts();
   const { userName, setUserName } = useUser();
-  const totalPhysicalCheckboxes = 6;
-  const totalMentalCheckboxes = 8;
-  const totalNutritionCheckboxes = 4;
-  const totalSleepCheckboxes = 10;
-  const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
-  const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
-  const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes);
-  const sleepColor = getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes);
 
   // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
