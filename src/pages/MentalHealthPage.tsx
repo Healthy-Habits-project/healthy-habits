@@ -56,7 +56,7 @@ const mentalHealthPage: React.FC = () => {
   const [ mentalHealth, setMentalHealthHabits] = useState<CheckboxState>(() => {
     const storedState = localStorage.getItem('mentalHealthPageCheckboxes');
     return storedState ? JSON.parse(storedState) : initialState;
-  }); 
+  });
 
   useEffect(() => {
     console.log('Checking for a new day...');
@@ -64,9 +64,9 @@ const mentalHealthPage: React.FC = () => {
       console.log('New day, resetting checkboxes');
       setMentalHealthHabits(initialState);
       localStorage.setItem('mentalHealthPageCheckboxes', JSON.stringify(initialState));
-    } 
+    }
+    console.log('Not a new day, no need to reset checkboxes');
   }, []);
-
 
   const { setMentalHealthCheckedCount } = useGlobalCounts();
 
@@ -79,7 +79,7 @@ const mentalHealthPage: React.FC = () => {
   const checkedCount = calculateCheckedCount(mentalHealth);
   const totalCheckboxes = Object.keys(mentalHealth).length;
   const color = getColorBasedOnCount(checkedCount, totalCheckboxes);
-  
+
   return (
     <IonPage>
       <IonHeader translucent={true}>
