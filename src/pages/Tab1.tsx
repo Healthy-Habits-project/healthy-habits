@@ -1,5 +1,4 @@
-// Tab1.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -22,32 +21,18 @@ import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { useUser } from '../contexts/UserContext'; // Import useUser hook
 
 const Tab1: React.FC = () => {
-  const { mentalHealthCheckedCount } = useGlobalCounts();
-  const { physicalHealthCheckedCount } = useGlobalCounts();
-  const { nutritionCheckedCount } = useGlobalCounts();
-  const { sleepCheckedCount } = useGlobalCounts();
+  const { mentalHealthCheckedCount, setMentalHealthCheckedCount, physicalHealthCheckedCount, setPhysicalHealthCheckedCount, nutritionCheckedCount, setNutritionCheckedCount, sleepCheckedCount, setSleepCheckedCount } = useGlobalCounts();
   const { userName, setUserName } = useUser();
-  useEffect(() => {
-    // Retrieve the username from localStorage when the component mounts
-    const storedUserName = localStorage.getItem('userName');
-    if (storedUserName) {
-      setUserName(storedUserName); // Update the userName in your context
-    }
-  }, [setUserName]);
-
-  // TODO: Replace hard-coded values with values calculated from the GlobalCountsContext, somehow.
   const totalPhysicalCheckboxes = 6;
   const totalMentalCheckboxes = 8;
   const totalNutritionCheckboxes = 4;
   const totalSleepCheckboxes = 10;
-
   const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
   const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
   const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes);
   const sleepColor = getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes);
 
-  // TODO: Get the card color to update when the page is accessed, rather than only when the card is clicked.
-  // UseEffect is not working as expected, so the card colors are not updating when the Tab1.tsx page is accessed.
+  // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
     const card = document.getElementById(cardId);
     if (card) {
@@ -56,7 +41,35 @@ const Tab1: React.FC = () => {
   };
 
   useEffect(() => {
-    // Update the colors when the page is accessed, at least that's the idea.
+    // Retrieve the counts from local storage and update the state
+    const storedPhysicalCount = localStorage.getItem('physicalHealthCheckedCount');
+    if (storedPhysicalCount) {
+      setPhysicalHealthCheckedCount(Number(storedPhysicalCount));
+    }
+
+    const storedMentalCount = localStorage.getItem('mentalHealthCheckedCount');
+    if (storedMentalCount) {
+      setMentalHealthCheckedCount(Number(storedMentalCount));
+    }
+
+    const storedNutritionCount = localStorage.getItem('nutritionCheckedCount');
+    if (storedNutritionCount) {
+      setNutritionCheckedCount(Number(storedNutritionCount));
+    }
+
+    const storedSleepCount = localStorage.getItem('sleepCheckedCount');
+    if (storedSleepCount) {
+      setSleepCheckedCount(Number(storedSleepCount));
+    }
+  }, [setPhysicalHealthCheckedCount, setMentalHealthCheckedCount, setNutritionCheckedCount, setSleepCheckedCount]);
+
+  useEffect(() => {
+    // Update the card colors based on the retrieved counts
+    const totalPhysicalCheckboxes = 6;
+    const totalMentalCheckboxes = 8;
+    const totalNutritionCheckboxes = 4;
+    const totalSleepCheckboxes = 10;
+
     const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
     const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
     const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes);
@@ -66,7 +79,21 @@ const Tab1: React.FC = () => {
     setCardColor("physicalCard", physicalColor);
     setCardColor("nutritionCard", nutritionColor);
     setCardColor("sleepCard", sleepColor);
+
+    // Store the counts in local storage
+    localStorage.setItem('physicalHealthCheckedCount', physicalHealthCheckedCount.toString());
+    localStorage.setItem('mentalHealthCheckedCount', mentalHealthCheckedCount.toString());
+    localStorage.setItem('nutritionCheckedCount', nutritionCheckedCount.toString());
+    localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
+
+  useEffect(() => {
+    // Retrieve the username from localStorage when the component mounts
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setUserName(storedUserName); // Update the userName in your context
+    }
+  }, [setUserName]);
 
   return (
     <IonPage>
