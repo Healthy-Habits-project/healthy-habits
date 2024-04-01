@@ -154,7 +154,7 @@ const Tab2: React.FC = () => {
         </IonModal>
       </IonContent>
 
-      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center', padding: '20px', background: 'black', color: 'white', borderTop: '1px solid #ccc', zIndex: 1000 }}>
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center', padding: '20px', color: 'white', borderTop: '1px solid #ccc', zIndex: 1000 }}>
         {badgeCount > 0 && (
           <>
             <IonImg src={badgeImage} style={{ width: '50px', height: '50px' }} />
@@ -167,10 +167,3 @@ const Tab2: React.FC = () => {
 };
 
 export default Tab2;
-
-
-
-
-
-
-

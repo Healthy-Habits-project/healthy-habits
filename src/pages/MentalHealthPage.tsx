@@ -98,6 +98,11 @@ const mentalHealthPage: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen={true} className="ion-padding">
+      <IonItem>
+          <IonLabel>
+            <h2>Keep track of your mental health here</h2>
+          </IonLabel>
+        </IonItem>
         <IonList>
           <IonItem>
             <IonCheckbox

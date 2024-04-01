@@ -90,7 +90,7 @@ const PhysicalPage: React.FC = () => {
       <IonContent fullscreen={true} className="ion-padding">
         <IonItem>
           <IonLabel>
-            <h2>Keep track of your physical activities below!</h2>
+            <h2>Keep track of your physical activities here</h2>
           </IonLabel>
         </IonItem>
         <IonList>

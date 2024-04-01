@@ -109,7 +109,7 @@ const Tab3: React.FC = () => {
               <IonAlert
                 trigger="present-alert"
                 header="Reset Data"
-                message="Are you sure you want to reset the app data? This removes all saved data and settings. This action cannot be undone!"
+                message="Resetting the app will delete ALL saved data and settings, including the calendar. This action cannot be undone. Do you want to continue?"
                 buttons={[
                   {
                     text: 'Cancel',
