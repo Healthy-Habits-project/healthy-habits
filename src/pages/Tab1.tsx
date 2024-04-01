@@ -28,8 +28,10 @@ const Tab1: React.FC = () => {
   const totalNutritionCheckboxes = 4; // Example value
   const totalSleepCheckboxes = 10; // Example value
 
+  // useEffect 1
   useEffect(() => {
     // Assuming this useEffect is within a component that renders the cards
+    console.log('DEBUG: useEffect 1 called!');
     const updateCardColors = () => {
       const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes); // assuming totalPhysicalCheckboxes is defined
       const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes); // assuming totalMentalCheckboxes is defined
@@ -45,8 +47,10 @@ const Tab1: React.FC = () => {
     updateCardColors();
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
   
+  // useEffect 2
   useEffect(() => {
     // Update the card colors based on the retrieved counts
+    console.log('DEBUG: useEffect 2 called!');
     setCardColor("mentalCard", getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes));
     setCardColor("physicalCard", getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes));
     setCardColor("nutritionCard", getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes));
@@ -56,17 +60,19 @@ const Tab1: React.FC = () => {
 
   // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
+    console.log('DEBUG: setCardColor function called!');
     const card = document.getElementById(cardId);
     if (card) {
       card.style.backgroundColor = color;
     }
-    console.log('setCardColor called');
-    console.log('cardId:', cardId);
-    console.log('color:', color);
+    console.log('DEBUG: setCardColor - cardId:', cardId);
+    console.log('DEBUG: setCardColor - color:', color);
   };
 
+  // useEffect 3
   useEffect(() => {
     // Retrieve the counts from local storage and update the state
+    console.log('DEBUG: useEffect 3 called!');
     const storedPhysicalCount = localStorage.getItem('physicalHealthCheckedCount');
     if (storedPhysicalCount) {
       setPhysicalHealthCheckedCount(Number(storedPhysicalCount));
@@ -88,8 +94,10 @@ const Tab1: React.FC = () => {
     }
   }, [setPhysicalHealthCheckedCount, setMentalHealthCheckedCount, setNutritionCheckedCount, setSleepCheckedCount]);
 
+  // useEffect 4
   useEffect(() => {
     // Update the card colors based on the retrieved counts
+    console.log('DEBUG: useEffect 4 called!');
     const totalPhysicalCheckboxes = 6;
     const totalMentalCheckboxes = 8;
     const totalNutritionCheckboxes = 4;
@@ -117,8 +125,10 @@ const Tab1: React.FC = () => {
     localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
+  // useEffect 5
   useEffect(() => {
     // Retrieve the username from localStorage when the component mounts
+    console.log('DEBUG: useEffect 5 called!');
     const storedUserName = localStorage.getItem('userName');
     if (storedUserName) {
       setUserName(storedUserName); // Update the userName in your context
