@@ -23,7 +23,61 @@ import { useUser } from '../contexts/UserContext'; // Import useUser hook
 const Tab1: React.FC = () => {
   const { mentalHealthCheckedCount, setMentalHealthCheckedCount, physicalHealthCheckedCount, setPhysicalHealthCheckedCount, nutritionCheckedCount, setNutritionCheckedCount, sleepCheckedCount, setSleepCheckedCount } = useGlobalCounts();
   const { userName, setUserName } = useUser();
+  const totalPhysicalCheckboxes = 6; // Example value, adjust based on your app's requirements
+  const totalMentalCheckboxes = 8; // Example value
+  const totalNutritionCheckboxes = 4; // Example value
+  const totalSleepCheckboxes = 10; // Example value
+  useEffect(() => {
+    // Assuming this useEffect is within a component that renders the cards
+    const updateCardColors = () => {
+      const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes); // assuming totalPhysicalCheckboxes is defined
+      const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes); // assuming totalMentalCheckboxes is defined
+      const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes); // assuming totalNutritionCheckboxes is defined
+      const sleepColor = getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes); // assuming totalSleepCheckboxes is defined
+  
+      setCardColor("physicalCard", physicalColor);
+      setCardColor("mentalCard", mentalColor);
+      setCardColor("nutritionCard", nutritionColor);
+      setCardColor("sleepCard", sleepColor);
+    };
+  
+    updateCardColors();
+  }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
+  
+  useEffect(() => {
+    // Update the card colors based on the retrieved counts
+    setCardColor("mentalCard", getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes));
+    setCardColor("physicalCard", getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes));
+    setCardColor("nutritionCard", getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes));
+    setCardColor("sleepCard", getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes));
+  }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
+
+  //This was definitely here
+  const resetCountsToZero = () => {
+    setMentalHealthCheckedCount(0);
+    setPhysicalHealthCheckedCount(0);
+    setNutritionCheckedCount(0);
+    setSleepCheckedCount(0);
+
+    // Store the reset date in local storage
+    const today = new Date();
+    localStorage.setItem('lastResetDate', today.toDateString());
+  };
+
+  useEffect(() => {
+    const lastResetDate = localStorage.getItem('lastResetDate');
+    const today = new Date().toDateString();
+
+    if (!lastResetDate || lastResetDate !== today) {
+      // Reset the counts to zero for all cards
+      resetCountsToZero();
+    }
+  }, []);
+  //
+
+
+  
   // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
     const card = document.getElementById(cardId);
