@@ -27,6 +27,7 @@ const Tab1: React.FC = () => {
   const totalMentalCheckboxes = 8; // Example value
   const totalNutritionCheckboxes = 4; // Example value
   const totalSleepCheckboxes = 10; // Example value
+
   useEffect(() => {
     // Assuming this useEffect is within a component that renders the cards
     const updateCardColors = () => {
@@ -53,31 +54,6 @@ const Tab1: React.FC = () => {
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
 
-  //This was definitely here
-  const resetCountsToZero = () => {
-    setMentalHealthCheckedCount(0);
-    setPhysicalHealthCheckedCount(0);
-    setNutritionCheckedCount(0);
-    setSleepCheckedCount(0);
-
-    // Store the reset date in local storage
-    const today = new Date();
-    localStorage.setItem('lastResetDate', today.toDateString());
-  };
-
-  useEffect(() => {
-    const lastResetDate = localStorage.getItem('lastResetDate');
-    const today = new Date().toDateString();
-
-    if (!lastResetDate || lastResetDate !== today) {
-      // Reset the counts to zero for all cards
-      resetCountsToZero();
-    }
-  }, []);
-  //
-
-
-  
   // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
     const card = document.getElementById(cardId);
