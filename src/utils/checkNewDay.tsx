@@ -3,14 +3,14 @@ export const isNewDay = (pageKey: string): boolean => {
     const lastVisitKey = `${pageKey}-lastVisitDate`;
     const lastVisitDate = localStorage.getItem(lastVisitKey);
 
-    console.log(`Today: ${today}, Last Visit: ${lastVisitDate}`);
+    console.log(`CheckNewDay.tsx: Today is: ${today}, Last Visit: ${lastVisitDate}`);
 
     if (today !== lastVisitDate) {
         localStorage.setItem(lastVisitKey, today);
-        console.log(`It's a new day for ${pageKey}.`);
+        console.log(`CheckNewDay.tsx: It's a new day for ${pageKey}.`);
         return true;
     }
 
-    console.log(`Not a new day for ${pageKey}.`);
+    console.log(`CheckNewDay.tsx: Not a new day for ${pageKey}.`);
     return false;
 };

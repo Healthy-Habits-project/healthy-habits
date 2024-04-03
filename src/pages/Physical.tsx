@@ -15,7 +15,7 @@ import {
 } from '@ionic/react';
 
 import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } from './functions';
-import './PhysicalHealthPage.css';
+import './Physical.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
@@ -35,7 +35,7 @@ interface CheckboxState {
   steps: false,
   sunlight: false,
 }
-const PhysicalPage: React.FC = () => {
+const Physical: React.FC = () => {
   const initialState: CheckboxState = {
     resistance: false,
     cardio: false,
@@ -50,12 +50,14 @@ const PhysicalPage: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log('Checking for a new day...');
-    if (isNewDay('physicalPage')) {
-      console.log('New day, resetting checkboxes');
+    console.log('Physical.tsx: Checking for a new day...');
+    if (isNewDay('Physical')) {
+      console.log('Physical.tsx: New day, resetting checkboxes');
       setPhysicalHabits(initialState);
       localStorage.setItem('physicalPageCheckboxes', JSON.stringify(initialState));
-    } 
+    } else {
+      console.log('Physical.tsx: Not a new day, no need to reset checkboxes');
+    }
   }, []);
 
   const { setPhysicalHealthCheckedCount } = useGlobalCounts();
@@ -171,4 +173,4 @@ const PhysicalPage: React.FC = () => {
   );
 };
 
-export default PhysicalPage;
+export default Physical;

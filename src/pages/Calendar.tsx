@@ -5,10 +5,9 @@ import { format } from 'date-fns';
 import badgeImage from '/badges/badge1.png'; // Ensure this path points to your badge image
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 
+import './Calendar.css';
 
-import './Tab2.css';
-
-const Tab2: React.FC = () => {
+const Calendar: React.FC = () => {
   const savedRatings = JSON.parse(localStorage.getItem('dayRatings') || '{}');
   const [dayRatings, setDayRatings] = useState<{ [key: string]: number }>(savedRatings);
   const [badgeCount, setBadgeCount] = useState<number>(0);
@@ -166,4 +165,4 @@ const Tab2: React.FC = () => {
   );
 };
 
-export default Tab2;
+export default Calendar;

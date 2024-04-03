@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
@@ -14,13 +13,13 @@ import {
 import { GlobalCountsProvider } from './contexts/GlobalCountsContext';
 import { IonReactRouter } from '@ionic/react-router';
 import { calendarOutline, homeOutline, settingsOutline } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
-import MentalHealthPage from './pages/MentalHealthPage';
-import PhysicalHealthPage from './pages/PhysicalHealthPage';
-import NutritionPage from './pages/NutritionPage';
-import SleepPage from './pages/SleepPage';
+import Home from './pages/Home';
+import Calendar from './pages/Calendar';
+import Settings from './pages/Settings';
+import Mental from './pages/Mental';
+import Physical from './pages/Physical';
+import Nutrition from './pages/Nutrition';
+import Sleep from './pages/Sleep';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -57,31 +56,31 @@ const App: React.FC = () => (
             <IonReactRouter>
               <IonTabs>
                 <IonRouterOutlet onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                  <Route path="/mentalhealthpage" component={MentalHealthPage} exact />
-                  <Route path="/physicalhealthpage" component={PhysicalHealthPage} exact />
-                  <Route path="/nutritionpage" component={NutritionPage} exact />
-                  <Route path="/sleeppage" component={SleepPage} exact />
-                  <Route exact path="/tab1">
-                    <Tab1 />
+                  <Route path="/home/mental" component={Mental} exact />
+                  <Route path="/home/physical" component={Physical} exact />
+                  <Route path="/home/nutrition" component={Nutrition} exact />
+                  <Route path="/home/sleep" component={Sleep} exact />
+                  <Route exact path="/home">
+                    <Home />
                   </Route>
-                  <Route exact path="/tab2">
-                    <Tab2 />
+                  <Route exact path="/calendar">
+                    <Calendar />
                   </Route>
-                  <Route path="/tab3">
-                    <Tab3 />
+                  <Route path="/settings">
+                    <Settings />
                   </Route>
                   <Route exact path="/">
-                    <Redirect to="/tab1" />
+                    <Redirect to="/home" />
                   </Route>
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
-                  <IonTabButton tab="tab1" href="/tab1">
+                  <IonTabButton tab="home" href="/home">
                     <IonIcon icon={homeOutline} />
                   </IonTabButton>
-                  <IonTabButton tab="tab2" href="/tab2">
+                  <IonTabButton tab="calendar" href="/calendar">
                     <IonIcon icon={calendarOutline} />
                   </IonTabButton>
-                  <IonTabButton tab="tab3" href="/tab3">
+                  <IonTabButton tab="settings" href="/settings">
                     <IonIcon icon={settingsOutline} />
                   </IonTabButton>
                 </IonTabBar>

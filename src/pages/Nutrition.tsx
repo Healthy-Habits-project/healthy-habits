@@ -14,7 +14,7 @@ import {
   IonToolbar
 } from '@ionic/react';
 import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } from './functions';
-import './NutritionPage.css';
+import './Nutrition.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
@@ -30,7 +30,7 @@ interface CheckboxState {
   waterTarget: false,
   fastFood: false,
 }
-const NutritionPage: React.FC = () => {
+const Nutrition: React.FC = () => {
   const initialState: CheckboxState = {
     calorieTarget: false,
     individualMeals: false,
@@ -42,12 +42,14 @@ const NutritionPage: React.FC = () => {
     return storedState ? JSON.parse(storedState) : initialState;
   });
   useEffect(() => {
-    console.log('Checking for a new day...');
-    if (isNewDay('nutritionPage')) {
-      console.log('New day, resetting nutrition checkboxes');
+    console.log('Nutrition.tsx: Checking for a new day...');
+    if (isNewDay('Nutrition')) {
+      console.log('Nutrition.tsx: New day, resetting nutrition checkboxes');
       setNutritionHabits(initialState);
       localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(initialState));
-    } 
+    } else {
+      console.log('Nutrition.tsx: Not a new day, no need to reset checkboxes');
+    }
   }, []);
 
   const { setNutritionCheckedCount } = useGlobalCounts();
@@ -139,4 +141,4 @@ const NutritionPage: React.FC = () => {
   );
 };
 
-export default NutritionPage;
+export default Nutrition;

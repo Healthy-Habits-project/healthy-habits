@@ -16,7 +16,7 @@ import {
 
 import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } from './functions';
 
-import './SleepPage.css';
+import './Sleep.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
@@ -46,7 +46,7 @@ interface CheckboxState {
   coolSleepEnvironment: false
 }
 
-const SleepPage: React.FC = () => {
+const Sleep: React.FC = () => {
   const initialState: CheckboxState = {
     consistentBedtime: false,
     restfulSleep: false,
@@ -78,11 +78,13 @@ const SleepPage: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log('Checking for a new day...');
-    if (isNewDay('sleepPage')) {
-      console.log('New day, resetting sleep checkboxes');
+    console.log('Sleep.tsx: Checking for a new day...');
+    if (isNewDay('Sleep')) {
+      console.log('Sleep.tsx: New day, resetting sleep checkboxes');
       setSleepHabits(initialState);
       localStorage.setItem('sleepPageCheckboxes', JSON.stringify(initialState));
+    } else {
+      console.log('Sleep.tsx: Not a new day, no need to reset checkboxes');
     }
   }, []);
 
@@ -247,4 +249,4 @@ const SleepPage: React.FC = () => {
   );
 };
 
-export default SleepPage;
+export default Sleep;
