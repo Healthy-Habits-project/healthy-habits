@@ -201,7 +201,6 @@ const mentalHealthPage: React.FC = () => {
           </IonItem>
 
         </IonList>
-        <DateTimeDisplay/>
       </IonContent>
     </IonPage>
   );
