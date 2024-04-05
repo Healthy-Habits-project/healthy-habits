@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Healthy-Habits-project/healthy-habits">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="Images/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Healthy Habits</h3>
