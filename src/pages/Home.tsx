@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -16,11 +16,11 @@ import {
 
 import { getColorBasedOnCount } from './functions';
 
-import './Tab1.css';
+import './Home.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
-import { useUser } from '../contexts/UserContext'; // Import useUser hook
+import { useUser } from '../contexts/UserContext';
 
-const Tab1: React.FC = () => {
+const Home: React.FC = () => {
   const { mentalHealthCheckedCount, setMentalHealthCheckedCount, physicalHealthCheckedCount, setPhysicalHealthCheckedCount, nutritionCheckedCount, setNutritionCheckedCount, sleepCheckedCount, setSleepCheckedCount } = useGlobalCounts();
   const { userName, setUserName } = useUser();
 
@@ -118,7 +118,7 @@ const Tab1: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol size="6" size-sm="4">
-              <IonRouterLink routerLink="/mentalhealthpage">
+              <IonRouterLink routerLink="/home/mental">
                 <IonCard id="mentalCard">
                   <img alt="MentalHealth" src="/MentalHealthCard.png" />
                   <IonCardHeader style={{ backgroundColor: "#ebc2ff" }}>
@@ -129,7 +129,7 @@ const Tab1: React.FC = () => {
             </IonCol>
 
             <IonCol size="6" size-sm="4">
-              <IonRouterLink routerLink="/physicalhealthpage">
+              <IonRouterLink routerLink="/home/physical">
                 <IonCard id="physicalCard">
                   <img alt="PhysicalHealth" src="/PhysicalHealthCard.png" height="" />
                   <IonCardHeader style={{ backgroundColor: "#a873e8" }}>
@@ -140,7 +140,7 @@ const Tab1: React.FC = () => {
             </IonCol>
 
             <IonCol size="6" size-sm="4">
-              <IonRouterLink routerLink="/nutritionpage">
+              <IonRouterLink routerLink="/home/nutrition">
                 <IonCard id="nutritionCard">
                   <img alt="Nutrition" src="/NutritionCard.png" />
                   <IonCardHeader style={{ backgroundColor: "#56d1dc" }}>
@@ -151,7 +151,7 @@ const Tab1: React.FC = () => {
             </IonCol>
 
             <IonCol size="6" size-sm="4">
-              <IonRouterLink routerLink="/sleeppage">
+              <IonRouterLink routerLink="/home/sleep">
                 <IonCard id="sleepCard">
                   <img alt="SleepHabits" src="/SleepCard.png" />
                   <IonCardHeader style={{ backgroundColor: "#5d7bd5" }}>
@@ -167,4 +167,4 @@ const Tab1: React.FC = () => {
   );
 };
 
-export default Tab1;
+export default Home;

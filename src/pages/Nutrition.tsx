@@ -11,43 +11,43 @@ import {
   IonPage,
   IonProgressBar,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonButton,
+  IonInput,
 } from '@ionic/react';
 import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } from './functions';
-import './NutritionPage.css';
+import './Nutrition.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
-interface NutritionPageState {
+interface CheckboxState {
   calorieTarget: boolean;
   individualMeals: boolean;
   waterTarget: boolean;
   fastFood: boolean;
 }
-interface CheckboxState {
-  calorieTarget: false,
-  individualMeals: false,
-  waterTarget: false,
-  fastFood: false,
-}
-const NutritionPage: React.FC = () => {
+
+const Nutrition: React.FC = () => {
   const initialState: CheckboxState = {
     calorieTarget: false,
     individualMeals: false,
     waterTarget: false,
     fastFood: false,
   };
+  const [customCheckboxText, setCustomCheckboxText] = useState<string>('');
   const [nutritionHabits, setNutritionHabits] = useState<CheckboxState>(() => {
     const storedState = localStorage.getItem('nutritionPageCheckboxes');
     return storedState ? JSON.parse(storedState) : initialState;
   });
   useEffect(() => {
-    console.log('Checking for a new day...');
-    if (isNewDay('nutritionPage')) {
-      console.log('New day, resetting nutrition checkboxes');
+    console.log('Nutrition.tsx: Checking for a new day...');
+    if (isNewDay('Nutrition')) {
+      console.log('Nutrition.tsx: New day, resetting nutrition checkboxes');
       setNutritionHabits(initialState);
       localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(initialState));
-    } 
+    } else {
+      console.log('Nutrition.tsx: Not a new day, no need to reset checkboxes');
+    }
   }, []);
 
   const { setNutritionCheckedCount } = useGlobalCounts();
@@ -61,6 +61,17 @@ const NutritionPage: React.FC = () => {
   const checkedCount = calculateCheckedCount(nutritionHabits);
   const totalCheckboxes = Object.keys(nutritionHabits).length;
   const color = getColorBasedOnCount(checkedCount, totalCheckboxes);
+
+  const handleAddCustomCheckbox = () => {
+    if (customCheckboxText.trim() !== '') {
+      setNutritionHabits(prevState => ({
+        ...prevState,
+        [customCheckboxText]: false // Add the new custom checkbox to the state with default checked value of false
+      }));
+      setCustomCheckboxText(''); // Clear the input field after adding the custom checkbox
+      setNutritionCheckedCount(checkedCount + 1); // Increase the checked count when a new custom checkbox is added
+    }
+  };
 
   return (
     <IonPage>
@@ -80,7 +91,7 @@ const NutritionPage: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen={true} className="ion-padding">
-      <IonItem>
+        <IonItem>
           <IonLabel>
             <h2>Keep track of your nutrition here</h2>
           </IonLabel>
@@ -133,10 +144,40 @@ const NutritionPage: React.FC = () => {
               Did you avoid fast food today?
             </IonLabel>
           </IonItem>
+
+          {Object.entries(nutritionHabits).map(([key, value]) => {
+  // Check if the checkbox is a default one
+  const isDefaultCheckbox = initialState.hasOwnProperty(key);
+  if (!isDefaultCheckbox) {
+    // Render custom checkbox
+    return (
+      <IonItem key={key}>
+        <IonCheckbox
+          slot="start"
+          checked={value}
+          onIonChange={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}
+        />
+        <IonLabel onClick={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}>
+          {key}
+        </IonLabel>
+      </IonItem>
+    );
+  }
+})}
+
+
+          <IonItem>
+            <IonInput
+              placeholder="Enter text for custom checkbox"
+              value={customCheckboxText}
+              onIonChange={e => setCustomCheckboxText(e.detail.value!)}
+            />
+            <IonButton onClick={handleAddCustomCheckbox}>Add Custom Checkbox</IonButton>
+          </IonItem>
         </IonList>
       </IonContent>
     </IonPage>
   );
 };
 
-export default NutritionPage;
+export default Nutrition;

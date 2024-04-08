@@ -14,13 +14,13 @@ import {
   IonSelect,
   IonSelectOption,
   IonTitle,
-  IonToolbar,
+  IonToolbar
 } from '@ionic/react';
-import './Tab3.css';
-import { useUser } from '../contexts/UserContext'; // Import useUser hook
+import './Settings.css';
+import { useUser } from '../contexts/UserContext';
 import '../theme/variables.css';
 
-const Tab3: React.FC = () => {
+const Settings: React.FC = () => {
   const [name, setName] = useState('');
   const { userName, setUserName } = useUser();
   const [saveClicked, setSaveClicked] = useState(false);
@@ -134,4 +134,4 @@ const Tab3: React.FC = () => {
   );
 };
 
-export default Tab3;
+export default Settings;

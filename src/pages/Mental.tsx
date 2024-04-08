@@ -16,9 +16,8 @@ import {
 
 import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } from './functions';
 
-import './SleepPage.css';
+import './Mental.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
-import DateTimeDisplay from '../components/GetDateTime';
 import { isNewDay } from '../utils/checkNewDay';
 
 interface mentalHealthPageState {
@@ -42,7 +41,7 @@ interface CheckboxState {
   kindness: false,
 }
 
-const mentalHealthPage: React.FC = () => {
+const Mental: React.FC = () => {
   const initialState: CheckboxState = {
     mindfulness: false,
     family: false,
@@ -59,13 +58,14 @@ const mentalHealthPage: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log('Checking for a new day...');
-    if (isNewDay('mentalHealthPage')) {
-      console.log('New day, resetting checkboxes');
+    console.log('Mental.tsx: Checking for a new day...');
+    if (isNewDay('Mental')) {
+      console.log('Mental.tsx: New day, resetting checkboxes');
       setMentalHealthHabits(initialState);
       localStorage.setItem('mentalHealthPageCheckboxes', JSON.stringify(initialState));
+    } else {
+      console.log('Mental.tsx: Not a new day, no need to reset checkboxes');
     }
-    console.log('Not a new day, no need to reset checkboxes');
   }, []);
 
   const { setMentalHealthCheckedCount } = useGlobalCounts();
@@ -201,10 +201,9 @@ const mentalHealthPage: React.FC = () => {
           </IonItem>
 
         </IonList>
-        <DateTimeDisplay/>
       </IonContent>
     </IonPage>
   );
 };
 
-export default mentalHealthPage;
+export default Mental;
