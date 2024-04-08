@@ -33,6 +33,7 @@ const Home: React.FC = () => {
     }
     console.log('DEBUG: setCardColor() - cardId:', cardId);
     console.log('DEBUG: setCardColor() - color:', color);
+    console.log('DEBUG: setCardColor() - END');
   };
 
   // useEffect 1
@@ -98,6 +99,8 @@ const Home: React.FC = () => {
     localStorage.setItem('mentalHealthCheckedCount', mentalHealthCheckedCount.toString());
     localStorage.setItem('nutritionCheckedCount', nutritionCheckedCount.toString());
     localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
+
+    console.log('DEBUG: useEffect 2 - END');
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
   // useEffect 3
