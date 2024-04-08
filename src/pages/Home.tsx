@@ -35,10 +35,10 @@ const Home: React.FC = () => {
     console.log('DEBUG: setCardColor - color:', color);
   };
 
-  // useEffect 3
+  // useEffect 1
   useEffect(() => {
     // Retrieve the counts from local storage and update the state
-    console.log('DEBUG: useEffect 3 called!');
+    console.log('DEBUG: useEffect 1 called!');
     const storedPhysicalCount = localStorage.getItem('physicalHealthCheckedCount');
     if (storedPhysicalCount) {
       setPhysicalHealthCheckedCount(Number(storedPhysicalCount));
@@ -60,10 +60,10 @@ const Home: React.FC = () => {
     }
   }, [setPhysicalHealthCheckedCount, setMentalHealthCheckedCount, setNutritionCheckedCount, setSleepCheckedCount]);
 
-  // useEffect 4
+  // useEffect 2
   useEffect(() => {
     // Update the card colors based on the retrieved counts
-    console.log('DEBUG: useEffect 4 called!');
+    console.log('DEBUG: useEffect 2 called!');
     const totalPhysicalCheckboxes = 6;
     const totalMentalCheckboxes = 8;
     const totalNutritionCheckboxes = 4;
@@ -91,10 +91,10 @@ const Home: React.FC = () => {
     localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
   }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
-  // useEffect 5
+  // useEffect 3
   useEffect(() => {
     // Retrieve the username from localStorage when the component mounts
-    console.log('DEBUG: useEffect 5 called!');
+    console.log('DEBUG: useEffect 3 called!');
     const storedUserName = localStorage.getItem('userName');
     if (storedUserName) {
       setUserName(storedUserName); // Update the userName in your context
