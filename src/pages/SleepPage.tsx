@@ -31,6 +31,7 @@ interface SleepPageState {
   limitCaffeineIntake: boolean;
   bedtimeRoutine: boolean;
   coolSleepEnvironment: boolean;
+  bedEarly: boolean;
 }
 
 interface CheckboxState {
@@ -43,12 +44,14 @@ interface CheckboxState {
   consistentWakeUpTime: false,
   limitCaffeineIntake: false,
   bedtimeRoutine: false,
+  bedEarly: false,
   coolSleepEnvironment: false
 }
 
 const SleepPage: React.FC = () => {
   const initialState: CheckboxState = {
     consistentBedtime: false,
+    bedEarly: false,
     restfulSleep: false,
     avoidScreensBeforeBed: false,
     darkRoom: false,
@@ -61,20 +64,7 @@ const SleepPage: React.FC = () => {
   };
   const [sleepHabits, setSleepHabits] = useState<SleepPageState>(() => {
     const storedState = localStorage.getItem('sleepPageCheckboxes');
-    return storedState
-      ? JSON.parse(storedState)
-      : {
-        consistentBedtime: false,
-        restfulSleep: false,
-        avoidScreensBeforeBed: false,
-        darkRoom: false,
-        comfortableMattress: false,
-        quietEnvironment: false,
-        consistentWakeUpTime: false,
-        limitCaffeineIntake: false,
-        bedtimeRoutine: false,
-        coolSleepEnvironment: false,
-      };
+    return storedState? JSON.parse(storedState) : initialState;
   });
 
   useEffect(() => {
@@ -131,6 +121,18 @@ const SleepPage: React.FC = () => {
             />
             <IonLabel onClick={() => handleCheckboxChange('consistentBedtime', sleepHabits, setSleepHabits)}>
               Do you have a consistent bedtime?
+            </IonLabel>
+          </IonItem>
+
+          <IonItem>
+            <IonCheckbox
+              slot="start"
+              checked={sleepHabits.bedEarly}
+              onIonChange={() => handleCheckboxChange('bedEarly', sleepHabits, setSleepHabits)}
+              aria-label="Bed Early"
+            />
+            <IonLabel onClick={() => handleCheckboxChange('bedEarly', sleepHabits, setSleepHabits)}>
+              Did you go to bed early?
             </IonLabel>
           </IonItem>
 

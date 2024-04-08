@@ -26,6 +26,7 @@ interface PhysicalPageState {
   rom: boolean;
   steps: boolean;
   sunlight: boolean;
+  standing: boolean;
 }
 interface CheckboxState {
   resistance: false,
@@ -34,6 +35,7 @@ interface CheckboxState {
   rom: false,
   steps: false,
   sunlight: false,
+  standing: false
 }
 const PhysicalPage: React.FC = () => {
   const initialState: CheckboxState = {
@@ -43,8 +45,9 @@ const PhysicalPage: React.FC = () => {
     rom: false,
     steps: false,
     sunlight: false,
+    standing: false
   };
-  const [physicalHabits, setPhysicalHabits] = useState<CheckboxState>(() => {
+  const [physicalHabits, setPhysicalHabits] = useState<PhysicalPageState>(() => {
     const storedState = localStorage.getItem('physicalPageCheckboxes');
     return storedState ? JSON.parse(storedState) : initialState;
   });
@@ -94,6 +97,19 @@ const PhysicalPage: React.FC = () => {
           </IonLabel>
         </IonItem>
         <IonList>
+
+        <IonItem>
+            <IonCheckbox
+              slot="start"
+              checked={physicalHabits.standing}
+              onIonChange={() => handleCheckboxChange('standing', physicalHabits, setPhysicalHabits)}
+              aria-label="Standing Habits"
+            />
+            <IonLabel onClick={() => handleCheckboxChange('standing', physicalHabits, setPhysicalHabits)}>
+              Did you try to get up and stand up for awhile today?
+            </IonLabel>
+          </IonItem>
+
           <IonItem>
             <IonCheckbox
               slot="start"

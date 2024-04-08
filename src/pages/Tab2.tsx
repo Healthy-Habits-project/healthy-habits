@@ -23,6 +23,7 @@ const Tab2: React.FC = () => {
 
 
   const calculateColor = (
+    
     physicalHealthCheckedCount: number,
     mentalHealthCheckedCount: number,
     nutritionCheckedCount: number,
