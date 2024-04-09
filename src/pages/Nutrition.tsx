@@ -73,6 +73,27 @@ const Nutrition: React.FC = () => {
     }
   };
 
+  const handleRemoveCheckbox = (keyToRemove: string) => {
+    setNutritionHabits(prevState => {
+      const updatedHabits = { ...prevState };
+      delete updatedHabits[keyToRemove];
+      return updatedHabits;
+    });
+  };
+  
+
+  //useEffect for adding new checkboxes
+  useEffect(() => {
+    if (customCheckboxText.trim() !== '') {
+      setNutritionHabits(prevState => ({
+        ...prevState,
+        [customCheckboxText]: false // Add the new custom checkbox to the state with default checked value of false
+      }));
+      setCustomCheckboxText(''); // Clear the input field after adding the custom checkbox
+      setNutritionCheckedCount(checkedCount + 1); // Increase the checked count when a new custom checkbox is added
+    }
+  }, [customCheckboxText, checkedCount, setNutritionCheckedCount]);
+
   return (
     <IonPage>
       <IonHeader translucent={true}>
@@ -146,33 +167,31 @@ const Nutrition: React.FC = () => {
           </IonItem>
 
           {Object.entries(nutritionHabits).map(([key, value]) => {
-  // Check if the checkbox is a default one
-  const isDefaultCheckbox = initialState.hasOwnProperty(key);
-  if (!isDefaultCheckbox) {
-    // Render custom checkbox
-    return (
-      <IonItem key={key}>
-        <IonCheckbox
-          slot="start"
-          checked={value}
-          onIonChange={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}
-        />
-        <IonLabel onClick={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}>
-          {key}
-        </IonLabel>
-      </IonItem>
-    );
-  }
-})}
-
+            const isDefaultCheckbox = initialState.hasOwnProperty(key);
+            if (!isDefaultCheckbox) {
+              return (
+                <IonItem key={key}>
+                  <IonCheckbox
+                    slot="start"
+                    checked={value}
+                    onIonChange={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}
+                  />
+                  <IonLabel onClick={() => handleCheckboxChange(key, nutritionHabits, setNutritionHabits)}>
+                    {key}
+                  </IonLabel>
+                  <IonButton onClick={() => handleRemoveCheckbox(key)}>X</IonButton>
+                </IonItem>
+              );
+            }
+          })}
 
           <IonItem>
             <IonInput
-              placeholder="Enter text for custom checkbox"
+              placeholder="Enter a new goal here"
               value={customCheckboxText}
               onIonChange={e => setCustomCheckboxText(e.detail.value!)}
             />
-            <IonButton onClick={handleAddCustomCheckbox}>Add Custom Checkbox</IonButton>
+            <IonButton onClick={handleAddCustomCheckbox}>Add new goal</IonButton>
           </IonItem>
         </IonList>
       </IonContent>
