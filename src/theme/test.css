@@ -1,0 +1,31 @@
+:root {
+    --ion-background-color: #1e1e1e; /* Dark background color */
+    --ion-text-color: #ffffff; /* Light text color */
+    --ion-item-background: #2b2b2b; /* Dark item background color */
+  }
+  
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ion-background-color: #f4f5f8; /* Light background color */
+      --ion-text-color: #000000; /* Dark text color */
+      --ion-item-background: #ffffff; /* Light item background color */
+    }
+  }
+  
+  body {
+    background-color: var(--ion-background-color);
+    color: var(--ion-text-color);
+  }
+  
+  .ion-color-light {
+    --ion-background-color: #f4f5f8;
+    --ion-text-color: #000000;
+    --ion-item-background: #ffffff;
+  }
+  
+  .ion-color-dark {
+    --ion-background-color: #1e1e1e;
+    --ion-text-color: #ffffff;
+    --ion-item-background: #2b2b2b;
+  }
+  

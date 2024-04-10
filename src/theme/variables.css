@@ -1,14 +1,14 @@
 :root {
-  --ion-background-color: #f4f5f8;
-  --ion-text-color: #000000;
-  --ion-item-background: #ffffff;
+  --ion-background-color: #2c2c2c;
+  --ion-text-color: #ffffff;
+  --ion-item-background: #393939;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --ion-background-color: #121212;
-    --ion-text-color: #ffffff;
-    --ion-item-background: #1e1e1e;
+    --ion-background-color: #f4f5f8;
+    --ion-text-color: #000000;
+    --ion-item-background: #ffffff;
   }
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 .ion-color-dark {
-  --ion-background-color: #121212;
+  --ion-background-color: #1e1e1e;
   --ion-text-color: #ffffff;
-  --ion-item-background: #1e1e1e;
+  --ion-item-background: #2b2b2b;
 }
