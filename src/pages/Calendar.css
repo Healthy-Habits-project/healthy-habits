@@ -28,6 +28,19 @@
     background-color: transparent; /* Transparent background for unselected rating */
     color: black; /* Black text color for unselected rating */
   }
+  .cell {
+    position: relative;
+    font-size: large;
+  }
+  
+  .cell .day-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Ensure the day number appears above other content */
+  }
+  
   @keyframes pop {
     0% { transform: scale(1); }
     50% { transform: scale(1.21); }
