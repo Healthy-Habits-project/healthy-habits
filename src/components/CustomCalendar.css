@@ -33,11 +33,16 @@
   padding: 10px;
   border: 1px solid #ddd;
   background-color: white;
-  color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+.day-number {
+  color: white;
+  text-shadow: white 1px 0 5px;
+  -webkit-text-stroke-width: 0.9px;
+  -webkit-text-stroke-color: black;
+}
 .disabled {
   color: #ddd; /* Style for days not in the current month */
   pointer-events: none;

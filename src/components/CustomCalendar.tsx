@@ -104,7 +104,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
       physicalHealthColor: getColorForRating(data.physicalHealthCheckedCount),
       nutritionColor: getColorForRating(data.nutritionCheckedCount),
       sleepColor: getColorForRating(data.sleepCheckedCount),
-      
+
     };
 
     const existingData = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
@@ -176,14 +176,14 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-  
+
     const healthDataByDate = JSON.parse(localStorage.getItem('healthDataByDate') || '{}');
-  
+
     const rows = [];
     let days = [];
     let day = startDate;
     const today = new Date();
-  
+
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         const formattedDay = format(day, "yyyy-MM-dd");
@@ -209,45 +209,59 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
           cellStyle.backgroundColor = ratingColor;
           cellStyle.border = `4px solid ${ratingColor}`; // Set border color to the rating color
         }
-  
+
         const renderProgressBars = (progressData: ProgressData | null) => {
           if (!progressData) {
             return null; // No progress data for this day.
           }
+
+          // Adjusts the brightness of a color.
+          const adjustBrightness = (color: string, percent: number) => {
+            let R = parseInt(color.substring(1, 3), 16);
+            let G = parseInt(color.substring(3, 5), 16);
+            let B = parseInt(color.substring(5, 7), 16);
+
+            R = Math.min(255, R + Math.round(R * percent / 100));
+            G = Math.min(255, G + Math.round(G * percent / 100));
+            B = Math.min(255, B + Math.round(B * percent / 100));
+
+            const RR = R.toString(16).padStart(2, '0');
+            const GG = G.toString(16).padStart(2, '0');
+            const BB = B.toString(16).padStart(2, '0');
+
+            return `#${RR}${GG}${BB}`;
+          };
+
+          // Function to generate 3D style for progress bars based on percentages
+          const get3DStyle = (percentage: number, backgroundColor: string) => ({
+            flex: 1,
+            width: `${percentage}%`,
+            backgroundColor,
+            boxShadow: 'inset 0 -3px 6px rgba(0,0,0,0.2)', // Adds depth
+            margin: '2px 0', // Separates bars slightly
+            borderRadius: '5px', // Soften the edges
+            backgroundImage: `linear-gradient(to top, ${backgroundColor}, ${adjustBrightness(backgroundColor, 40)})`, // Simulates 3D lighting
+            border: '1px solid black'
+          });
+
           return (
             <div style={{
               position: 'absolute',
               bottom: 0,
               width: '100%',
-              height: '100%', // Ensure the container takes the full height of the cell
+              height: '100%',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end'
             }}>
-              <div style={{
-                flex: 1, // This will allow the bar to fill the space evenly
-                width: `${progressData.mentalHealthPercentage || 0}%`,
-                backgroundColor: '#ebc2ff'
-              }}></div>
-              <div style={{
-                flex: 1,
-                width: `${progressData.physicalHealthPercentage || 0}%`,
-                backgroundColor: '#a873e8'
-              }}></div>
-              <div style={{
-                flex: 1,
-                width: `${progressData.nutritionPercentage || 0}%`,
-                backgroundColor: '#56d1dc'
-              }}></div>
-              <div style={{
-                flex: 1,
-                width: `${progressData.sleepPercentage || 0}%`,
-                backgroundColor: '#5d7bd5'
-              }}></div>
-  
+              <div style={get3DStyle(progressData.mentalHealthPercentage || 0, '#ebc2ff')}></div>
+              <div style={get3DStyle(progressData.physicalHealthPercentage || 0, '#a873e8')}></div>
+              <div style={get3DStyle(progressData.nutritionPercentage || 0, '#56d1dc')}></div>
+              <div style={get3DStyle(progressData.sleepPercentage || 0, '#5d7bd5')}></div>
             </div>
           );
         };
+
         days.push(
           <div
             className={`column cell ${!isCurrentMonth ? 'disabled' : ''} ${isTodayFlag ? 'today' : ''}`}
@@ -264,11 +278,9 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
       rows.push(<div className="row" key={day.toString()}>{days}</div>);
       days = [];
     }
-  
+
     return <div className="body">{rows}</div>;
   };
-  
-  
 
 
   const nextMonth = () => {
