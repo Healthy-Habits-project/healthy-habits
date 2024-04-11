@@ -8,7 +8,9 @@
 .row {
   display: flex;
 }
-
+.column.col-center {
+  color: black;
+}
 .column {
   flex: 1;
   display: flex;
@@ -35,6 +37,7 @@
   background-color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  color: black;
 }
 
 .day-number {
