@@ -161,13 +161,13 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
 
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="column cell" key={i}>
+        <div className="column cell weekdays" key={i}>
           {format(addDays(startDate, i), dateFormat)}
         </div>
       );
     }
 
-    return <div className="row">{days}</div>;
+    return <div className="row dayheader">{days}</div>;
   };
 
 
@@ -275,7 +275,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
         );
         day = addDays(day, 1);
       }
-      rows.push(<div className="row" key={day.toString()}>{days}</div>);
+      rows.push(<div className="row header" key={day.toString()}>{days}</div>);
       days = [];
     }
 
