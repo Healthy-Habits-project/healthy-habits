@@ -122,16 +122,16 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
 
   const getColorForRating = (rating: number): string => {
     switch (rating) {
-      case 1: return '#fa0000';
-      case 2: return '#f94300';
-      case 3: return '#f46400';
-      case 4: return '#eb8000';
-      case 5: return '#dd9900';
-      case 6: return '#cbb000';
-      case 7: return '#b5c600';
-      case 8: return '#98da00';
-      case 9: return '#6fed00';
-      case 10: return '#00ff00';
+      case 1: return '#ff0000';
+      case 2: return '#ff3300';
+      case 3: return '#ff8533';
+      case 4: return '#ff9900';
+      case 5: return '#ffcc00';
+      case 6: return '#ffff00';
+      case 7: return '#d6ff33';
+      case 8: return '#99ff00';
+      case 9: return '#66ff00';
+      case 10: return '#33ff00';
       default: return '';
     }
   };
