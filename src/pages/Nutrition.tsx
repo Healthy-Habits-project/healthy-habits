@@ -25,7 +25,6 @@ interface CheckboxState {
   individualMeals: boolean;
   waterTarget: boolean;
   fastFood: boolean;
-  [key: string]: boolean;
 }
 
 const Nutrition: React.FC = () => {
