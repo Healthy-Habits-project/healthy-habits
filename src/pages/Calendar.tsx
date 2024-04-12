@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonGrid, IonRow, IonCol, IonModal, IonImg } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonModal, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import CustomCalendar from '../components/CustomCalendar'; // Make sure this path is correct
 import { format } from 'date-fns';
 import badgeImage from '/badges/badge1.png'; // Ensure this path points to your badge image
