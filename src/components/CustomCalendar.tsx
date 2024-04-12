@@ -255,7 +255,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
             style={cellStyle}
             onClick={() => handleDayClick(formattedDay)}
           >
-            <div className="day-number">{format(day, "d")}</div>
+            {format(day, "d")}
             {(selectedDay === formattedDay || (isTodayFlag && day === today)) && dayHealthData && renderProgressBars(dayHealthData)}
           </div>
         );
