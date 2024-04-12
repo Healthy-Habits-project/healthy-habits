@@ -55,7 +55,7 @@ const App: React.FC = () => (
           <IonApp>
             <IonReactRouter>
               <IonTabs>
-                <IonRouterOutlet onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <IonRouterOutlet onPointerOverCapture={undefined} onPointerMoveCapture={undefined}>
                   <Route path="/home/mental" component={Mental} exact />
                   <Route path="/home/physical" component={Physical} exact />
                   <Route path="/home/nutrition" component={Nutrition} exact />
