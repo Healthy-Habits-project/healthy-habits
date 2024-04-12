@@ -40,11 +40,19 @@
   color: black;
 }
 
+.cell {
+  position: relative;
+}
+
+
 .day-number {
+  font-size: 1rem;
   color: white;
   text-shadow: white 1px 0 5px;
   -webkit-text-stroke-width: 0.9px;
   -webkit-text-stroke-color: black;
+  position: absolute;
+  z-index: 1;
 }
 .disabled {
   color: #ddd; /* Style for days not in the current month */
