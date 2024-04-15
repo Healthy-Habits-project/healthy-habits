@@ -1,3 +1,7 @@
+//This is a test file for trying a new way to handle checkboxes
+//The idea is to have a default page of checkboxes that load in, and can be removed without permanently deleting them
+//This would allow the user to reload the default ones on an app reset
+
 import React, { useEffect, useState } from 'react';
 import {
   IonBackButton,
@@ -84,7 +88,7 @@ const Nutrition: React.FC = () => {
             defaultCheckboxes={nutritionHabits}
             onDeleteCheckbox={(key: string) => setNutritionHabits(prevState => {
               const updatedHabits = { ...prevState };
-              delete updatedHabits[key];
+              delete (updatedHabits as any)[key];
               return updatedHabits;
             })}
             onCheckboxChange={(key: string, value: boolean) => setNutritionHabits(prevState => ({

@@ -39,6 +39,7 @@
     --progress-background-hover: var(--ion-color-light);
   }
 /* SleepPage.css */
+/*What are these for? -MS*/
 .progress-color-0 { --ion-color-primary: #fa0000; }
 .progress-color-1 { --ion-color-primary: #fa3f00; }
   

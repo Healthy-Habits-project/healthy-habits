@@ -19,6 +19,7 @@ import './Physical.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
+//Default boxes set as booleans checked/unchecked
 interface PhysicalPageState {
   resistance: boolean;
   cardio: boolean;
@@ -28,6 +29,9 @@ interface PhysicalPageState {
   sunlight: boolean;
   standing: boolean;
 }
+
+//Default checkboxes initial state
+//Unchecked by default
 interface CheckboxState {
   resistance: false,
   cardio: false,
@@ -52,6 +56,7 @@ const Physical: React.FC = () => {
     return storedState ? JSON.parse(storedState) : initialState;
   });
 
+  //Checking if new day, and if it is a new day resetting checkboxes
   useEffect(() => {
     console.log('Physical.tsx: Checking for a new day...');
     if (isNewDay('Physical')) {
@@ -63,8 +68,10 @@ const Physical: React.FC = () => {
     }
   }, []);
 
+  //Setting global counts here
   const { setPhysicalHealthCheckedCount } = useGlobalCounts();
 
+  //Keep things in local storage
   useEffect(() => {
     const newCheckedCount = calculateCheckedCount(physicalHabits);
     setPhysicalHealthCheckedCount(newCheckedCount);

@@ -1,4 +1,7 @@
 // nutritionDefault.tsx
+//This goes with the file currently named nutritionTestDoNotTouch
+//It holds the default checkboxes to be deleted/restored
+
 import React from 'react';
 import { IonCheckbox, IonItem, IonLabel, IonButton } from '@ionic/react';
 

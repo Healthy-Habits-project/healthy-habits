@@ -20,6 +20,7 @@ import './Nutrition.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
+//Default boxes set as booleans checked/unchecked
 interface CheckboxState {
   calorieTarget: boolean;
   individualMeals: boolean;
@@ -27,6 +28,8 @@ interface CheckboxState {
   fastFood: boolean;
 }
 
+//Default checkboxes initial state
+//Unchecked by default
 const Nutrition: React.FC = () => {
   const initialState: CheckboxState = {
     calorieTarget: false,
@@ -34,11 +37,14 @@ const Nutrition: React.FC = () => {
     waterTarget: false,
     fastFood: false,
   };
+
   const [customCheckboxText, setCustomCheckboxText] = useState<string>('');
   const [nutritionHabits, setNutritionHabits] = useState<CheckboxState>(() => {
     const storedState = localStorage.getItem('nutritionPageCheckboxes');
     return storedState ? JSON.parse(storedState) : initialState;
   });
+
+//Checking if new day, and if it is a new day resetting checkboxes
   useEffect(() => {
     console.log('Nutrition.tsx: Checking for a new day...');
     if (isNewDay('Nutrition')) {
@@ -50,8 +56,10 @@ const Nutrition: React.FC = () => {
     }
   }, []);
 
+  //Setting global counts here
   const { setNutritionCheckedCount } = useGlobalCounts();
 
+  //Keep things in local storage
   useEffect(() => {
     const newCheckedCount = calculateCheckedCount(nutritionHabits);
     setNutritionCheckedCount(newCheckedCount);
@@ -73,10 +81,11 @@ const Nutrition: React.FC = () => {
     }
   };
 
+  //remove a checkbox
   const handleRemoveCheckbox = (keyToRemove: string) => {
     setNutritionHabits(prevState => {
       const updatedHabits = { ...prevState };
-      delete updatedHabits[keyToRemove];
+      delete (updatedHabits as any)[keyToRemove];
       return updatedHabits;
     });
   };

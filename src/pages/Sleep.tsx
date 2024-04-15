@@ -20,6 +20,7 @@ import './Sleep.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
+//Default boxes set as booleans checked/unchecked
 interface SleepPageState {
   consistentBedtime: boolean;
   restfulSleep: boolean;
@@ -34,6 +35,8 @@ interface SleepPageState {
   bedEarly: boolean;
 }
 
+//Default checkboxes initial state
+//Unchecked by default
 interface CheckboxState {
   consistentBedtime: false,
   restfulSleep: false,
@@ -67,6 +70,7 @@ const Sleep: React.FC = () => {
     return storedState? JSON.parse(storedState) : initialState;
   });
 
+  //Checking if new day, and if it is a new day resetting checkboxes
   useEffect(() => {
     console.log('Sleep.tsx: Checking for a new day...');
     if (isNewDay('Sleep')) {
@@ -78,12 +82,14 @@ const Sleep: React.FC = () => {
     }
   }, []);
 
+  //Setting global counts here
   const { setSleepCheckedCount } = useGlobalCounts();
 
+  //Keep things in local storage
   useEffect(() => {
     const newCheckedCount = calculateCheckedCount(sleepHabits);
     setSleepCheckedCount(newCheckedCount);
-    localStorage.setItem('sleepPageCheckboxes', JSON.stringify(sleepHabits)); // Optionally, persist the sleepHabits state in localStorage
+    localStorage.setItem('sleepPageCheckboxes', JSON.stringify(sleepHabits)); // Persist the sleepHabits state in localStorage
   }, [sleepHabits, setSleepCheckedCount]);
 
   const checkedCount = calculateCheckedCount(sleepHabits);

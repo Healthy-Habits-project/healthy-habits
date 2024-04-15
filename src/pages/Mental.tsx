@@ -20,6 +20,7 @@ import './Mental.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
 
+//Default boxes set as booleans checked/unchecked
 interface mentalHealthPageState {
   mindfulness: boolean;
   family: boolean;
@@ -30,6 +31,9 @@ interface mentalHealthPageState {
   balance: boolean;
   kindness: boolean;
 }
+
+//Default checkboxes initial state
+//Unchecked by default
 interface CheckboxState {
   mindfulness: false,
   family: false,
@@ -57,6 +61,7 @@ const Mental: React.FC = () => {
     return storedState ? JSON.parse(storedState) : initialState;
   });
 
+  //Checking if new day, and if it is a new day resetting checkboxes
   useEffect(() => {
     console.log('Mental.tsx: Checking for a new day...');
     if (isNewDay('Mental')) {
@@ -68,12 +73,14 @@ const Mental: React.FC = () => {
     }
   }, []);
 
+  //Setting global counts here
   const { setMentalHealthCheckedCount } = useGlobalCounts();
 
+  //Keep things in local storage
   useEffect(() => {
     const newCheckedCount = calculateCheckedCount(mentalHealth);
     setMentalHealthCheckedCount(newCheckedCount);
-    localStorage.setItem('mentalHealthPageCheckboxes', JSON.stringify(mentalHealth)); // Optionally, persist the mentalHealth state in localStorage
+    localStorage.setItem('mentalHealthPageCheckboxes', JSON.stringify(mentalHealth)); // Persist the mentalHealth state in localStorage
   }, [mentalHealth, setMentalHealthCheckedCount]);
 
   const checkedCount = calculateCheckedCount(mentalHealth);
