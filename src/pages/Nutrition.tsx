@@ -19,18 +19,18 @@ import { calculateCheckedCount, getColorBasedOnCount, handleCheckboxChange } fro
 import './Nutrition.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { isNewDay } from '../utils/checkNewDay';
+import { useCheckboxContext } from '../contexts/CheckboxInterpreter';
 
-//Default boxes set as booleans checked/unchecked
 interface CheckboxState {
   calorieTarget: boolean;
   individualMeals: boolean;
   waterTarget: boolean;
   fastFood: boolean;
+  [key: string]: boolean; // Allow dynamic keys for custom checkboxes
 }
 
-//Default checkboxes initial state
-//Unchecked by default
 const Nutrition: React.FC = () => {
+  const { updateCount } = useCheckboxContext();
   const initialState: CheckboxState = {
     calorieTarget: false,
     individualMeals: false,
@@ -44,64 +44,68 @@ const Nutrition: React.FC = () => {
     return storedState ? JSON.parse(storedState) : initialState;
   });
 
-//Checking if new day, and if it is a new day resetting checkboxes
   useEffect(() => {
-    console.log('Nutrition.tsx: Checking for a new day...');
     if (isNewDay('Nutrition')) {
-      console.log('Nutrition.tsx: New day, resetting nutrition checkboxes');
-      setNutritionHabits(initialState);
-      localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(initialState));
-    } else {
-      console.log('Nutrition.tsx: Not a new day, no need to reset checkboxes');
+      resetCheckboxes();
     }
   }, []);
 
-  //Setting global counts here
+  const resetCheckboxes = () => {
+    setNutritionHabits(initialState);
+    localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(initialState));
+  };
+
   const { setNutritionCheckedCount } = useGlobalCounts();
 
-  //Keep things in local storage
   useEffect(() => {
+    localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(nutritionHabits));
     const newCheckedCount = calculateCheckedCount(nutritionHabits);
     setNutritionCheckedCount(newCheckedCount);
-    localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(nutritionHabits)); // Persist the nutritionHabits state in localStorage
-  }, [nutritionHabits, setNutritionCheckedCount]);
+  }, [nutritionHabits]);
+
+
+
+  /#####################################################################################################/
+
+  const handleAddCustomCheckbox = () => {
+    if (customCheckboxText.trim()) {
+      // Explicitly cast the newCheckbox to Partial<CheckboxState> to ensure only valid CheckboxState keys are added.
+      const newCheckbox: Partial<CheckboxState> = { [customCheckboxText]: false };
+      // Use the spread operator to combine the existing state with the new checkbox.
+      // Since newCheckbox is a Partial<CheckboxState>, no type conflict should occur here.
+      const updatedState = { ...nutritionHabits, ...newCheckbox };
+      updateCheckboxes(updatedState as CheckboxState);
+      setCustomCheckboxText('');
+    }
+  };
+  
+  const handleRemoveCheckbox = (keyToRemove: string) => {
+    const { [keyToRemove]: _, ...remainingCheckboxes } = nutritionHabits;
+    // Ensure that the remaining checkboxes are still of type CheckboxState.
+    updateCheckboxes(remainingCheckboxes as CheckboxState);
+  };
+  const updateCheckboxes = (newState: CheckboxState) => {
+    // Directly set the new state assuming it matches the CheckboxState structure.
+    setNutritionHabits(newState);
+    localStorage.setItem('nutritionPageCheckboxes', JSON.stringify(newState));
+  };
+
+  const updateCheckboxCount = () => {
+    const count = Object.keys(nutritionHabits).length; // Get the current count of checkboxes
+    updateCount('nutrition', count);  // Assuming updateCount is your context method to update the count
+  };
+
+  // Call this function whenever checkboxes are added, removed, or their checked state changes
+useEffect(() => {
+  updateCheckboxCount(); // Call this after any change in the checkbox state
+}, [nutritionHabits]); // Dependency on the state of nutritionHabits
+
+
+/#####################################################################################################/
 
   const checkedCount = calculateCheckedCount(nutritionHabits);
   const totalCheckboxes = Object.keys(nutritionHabits).length;
   const color = getColorBasedOnCount(checkedCount, totalCheckboxes);
-
-  const handleAddCustomCheckbox = () => {
-    if (customCheckboxText.trim() !== '') {
-      setNutritionHabits(prevState => ({
-        ...prevState,
-        [customCheckboxText]: false // Add the new custom checkbox to the state with default checked value of false
-      }));
-      setCustomCheckboxText(''); // Clear the input field after adding the custom checkbox
-      setNutritionCheckedCount(checkedCount + 1); // Increase the checked count when a new custom checkbox is added
-    }
-  };
-
-  //remove a checkbox
-  const handleRemoveCheckbox = (keyToRemove: string) => {
-    setNutritionHabits(prevState => {
-      const updatedHabits = { ...prevState };
-      delete (updatedHabits as any)[keyToRemove];
-      return updatedHabits;
-    });
-  };
-  
-
-  //useEffect for adding new checkboxes
-  useEffect(() => {
-    if (customCheckboxText.trim() !== '') {
-      setNutritionHabits(prevState => ({
-        ...prevState,
-        [customCheckboxText]: false // Add the new custom checkbox to the state with default checked value of false
-      }));
-      setCustomCheckboxText(''); // Clear the input field after adding the custom checkbox
-      setNutritionCheckedCount(checkedCount + 1); // Increase the checked count when a new custom checkbox is added
-    }
-  }, [customCheckboxText, checkedCount, setNutritionCheckedCount]);
 
   return (
     <IonPage>

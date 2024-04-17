@@ -1,30 +1,31 @@
-// CheckboxContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface CheckboxContextType {
-  totalCheckboxes: number;
-  addCheckbox: () => void;
-  removeCheckbox: () => void;
+  counts: { [key: string]: number };
+  updateCount: (page: string, count: number) => void;
 }
 
-
-
-const CheckboxContextInterpreter = createContext<CheckboxContextType>({
-  totalCheckboxes: 0,
-  addCheckbox: () => {},
-  removeCheckbox: () => {}
+const CheckboxContext = createContext<CheckboxContextType>({
+  counts: {},
+  updateCount: () => {}
 });
 
-export const CheckboxInterpreter: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [totalCheckboxes, setTotalCheckboxes] = useState(0);
-  const addCheckbox = () => setTotalCheckboxes(prev => prev + 1);
-  const removeCheckbox = () => setTotalCheckboxes(prev => prev - 1);
+interface CheckboxProviderProps {
+  children: ReactNode;  // This ensures that 'children' is recognized as a prop
+}
+
+export const CheckboxInterpreterProvider: React.FC<CheckboxProviderProps> = ({ children }) => {
+  const [counts, setCounts] = useState<{ [key: string]: number }>({});
+
+  const updateCount = (page: string, count: number) => {
+    setCounts(prev => ({ ...prev, [page]: count }));
+  };
 
   return (
-    <CheckboxContextInterpreter.Provider value={{ totalCheckboxes, addCheckbox, removeCheckbox }}>
+    <CheckboxContext.Provider value={{ counts, updateCount }}>
       {children}
-    </CheckboxContextInterpreter.Provider>
+    </CheckboxContext.Provider>
   );
 };
 
-export const useCheckboxes = () => useContext(CheckboxContextInterpreter);
+export const useCheckboxContext = () => useContext(CheckboxContext);

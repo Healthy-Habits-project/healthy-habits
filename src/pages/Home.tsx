@@ -19,10 +19,12 @@ import { getColorBasedOnCount } from './functions';
 import './Home.css';
 import { useGlobalCounts } from '../contexts/GlobalCountsContext';
 import { useUser } from '../contexts/UserContext';
+import { useCheckboxContext } from '../contexts/CheckboxInterpreter';
 
 const Home: React.FC = () => {
   const { mentalHealthCheckedCount, setMentalHealthCheckedCount, physicalHealthCheckedCount, setPhysicalHealthCheckedCount, nutritionCheckedCount, setNutritionCheckedCount, sleepCheckedCount, setSleepCheckedCount } = useGlobalCounts();
   const { userName, setUserName } = useUser();
+  const { counts } = useCheckboxContext();
 
   // Function to set card color based on count
   const setCardColor = (cardId: string, color: string) => {
@@ -172,6 +174,13 @@ const Home: React.FC = () => {
                     <IonCardTitle>Sleep</IonCardTitle>
                   </IonCardHeader>
                 </IonCard>
+                <div>
+      <p>Mental Health Checkboxes: {counts.mental}</p>
+      <p>Physical Health Checkboxes: {counts.physical}</p>
+      <p>Nutrition Checkboxes: {counts.nutrition}</p>
+      <p>Sleep Checkboxes: {counts.sleep}</p>
+      {/* Other Home page content */}
+    </div>
               </IonRouterLink>
             </IonCol>
           </IonRow>

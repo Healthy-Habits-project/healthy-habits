@@ -41,55 +41,57 @@ import './theme/variables.css';
 import { ThemeProvider } from './components/ThemeContext';
 import { CheckboxProvider } from './contexts/CheckboxContext';
 import { UserContextProvider } from './contexts/UserContext';
-
 import useTheme from './components/useTheme';
+import { CheckboxInterpreterProvider } from './contexts/CheckboxInterpreter';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   useTheme(),
   <ThemeProvider>
-    <CheckboxProvider>
-      <GlobalCountsProvider>
-        <UserContextProvider> {/* Wrap the entire app with UserContextProvider */}
-          <IonApp>
-            <IonReactRouter>
-              <IonTabs>
-                <IonRouterOutlet onPointerOverCapture={undefined} onPointerMoveCapture={undefined}>
-                  <Route path="/home/mental" component={Mental} exact />
-                  <Route path="/home/physical" component={Physical} exact />
-                  <Route path="/home/nutrition" component={Nutrition} exact />
-                  <Route path="/home/sleep" component={Sleep} exact />
-                  <Route exact path="/home">
-                    <Home />
-                  </Route>
-                  <Route exact path="/calendar">
-                    <Calendar />
-                  </Route>
-                  <Route path="/settings">
-                    <Settings />
-                  </Route>
-                  <Route exact path="/">
-                    <Redirect to="/home" />
-                  </Route>
-                </IonRouterOutlet>
-                <IonTabBar slot="bottom">
-                  <IonTabButton tab="home" href="/home">
-                    <IonIcon icon={homeOutline} />
-                  </IonTabButton>
-                  <IonTabButton tab="calendar" href="/calendar">
-                    <IonIcon icon={calendarOutline} />
-                  </IonTabButton>
-                  <IonTabButton tab="settings" href="/settings">
-                    <IonIcon icon={settingsOutline} />
-                  </IonTabButton>
-                </IonTabBar>
-              </IonTabs>
-            </IonReactRouter>
-          </IonApp>
-        </UserContextProvider>
-      </GlobalCountsProvider>
-    </CheckboxProvider>
+    <CheckboxInterpreterProvider>
+      <CheckboxProvider>
+        <GlobalCountsProvider>
+          <UserContextProvider> {/* Wrap the entire app with UserContextProvider */}
+            <IonApp>
+              <IonReactRouter>
+                <IonTabs>
+                  <IonRouterOutlet onPointerOverCapture={undefined} onPointerMoveCapture={undefined}>
+                    <Route path="/home/mental" component={Mental} exact />
+                    <Route path="/home/physical" component={Physical} exact />
+                    <Route path="/home/nutrition" component={Nutrition} exact />
+                    <Route path="/home/sleep" component={Sleep} exact />
+                    <Route exact path="/home">
+                      <Home />
+                    </Route>
+                    <Route exact path="/calendar">
+                      <Calendar />
+                    </Route>
+                    <Route path="/settings">
+                      <Settings />
+                    </Route>
+                    <Route exact path="/">
+                      <Redirect to="/home" />
+                    </Route>
+                  </IonRouterOutlet>
+                  <IonTabBar slot="bottom">
+                    <IonTabButton tab="home" href="/home">
+                      <IonIcon icon={homeOutline} />
+                    </IonTabButton>
+                    <IonTabButton tab="calendar" href="/calendar">
+                      <IonIcon icon={calendarOutline} />
+                    </IonTabButton>
+                    <IonTabButton tab="settings" href="/settings">
+                      <IonIcon icon={settingsOutline} />
+                    </IonTabButton>
+                  </IonTabBar>
+                </IonTabs>
+              </IonReactRouter>
+            </IonApp>
+          </UserContextProvider>
+        </GlobalCountsProvider>
+      </CheckboxProvider>
+    </CheckboxInterpreterProvider>
   </ThemeProvider>
 );
 
