@@ -38,74 +38,53 @@ const Home: React.FC = () => {
     console.log('DEBUG: setCardColor() - END');
   };
 
-  // useEffect 1
-  useEffect(() => {
-    // Retrieve the counts from local storage and update the state
-    console.log('DEBUG: useEffect 1 - START');
-    const storedPhysicalCount = localStorage.getItem('physicalHealthCheckedCount');
-    console.log("DEBUG: useEffect 1 - storedPhysicalCount:", storedPhysicalCount);
-    if (storedPhysicalCount) {
-      console.log("DEBUG: useEffect 1 - setPhysicalHealthCheckedCount:", Number(storedPhysicalCount));
-      setPhysicalHealthCheckedCount(Number(storedPhysicalCount));
-    }
+  // useEffect for retrieving the counts from local storage when the component mounts
+useEffect(() => {
+  const storedPhysicalCount = localStorage.getItem('physicalHealthCheckedCount');
+  if (storedPhysicalCount) {
+    setPhysicalHealthCheckedCount(Number(storedPhysicalCount));
+  }
 
-    const storedMentalCount = localStorage.getItem('mentalHealthCheckedCount');
-    console.log("DEBUG: useEffect 1 - storedMentalCount:", storedMentalCount);
-    if (storedMentalCount) {
-      console.log("DEBUG: useEffect 1 - setMentalHealthCheckedCount:", Number(storedMentalCount));
-      setMentalHealthCheckedCount(Number(storedMentalCount));
-    }
+  const storedMentalCount = localStorage.getItem('mentalHealthCheckedCount');
+  if (storedMentalCount) {
+    setMentalHealthCheckedCount(Number(storedMentalCount));
+  }
 
-    const storedNutritionCount = localStorage.getItem('nutritionCheckedCount');
-    console.log("DEBUG: useEffect 1 - storedNutritionCount:", storedNutritionCount);
-    if (storedNutritionCount) {
-      console.log("DEBUG: useEffect 1 - setNutritionCheckedCount:", Number(storedNutritionCount));
-      setNutritionCheckedCount(Number(storedNutritionCount));
-    }
+  const storedNutritionCount = localStorage.getItem('nutritionCheckedCount');
+  if (storedNutritionCount) {
+    setNutritionCheckedCount(Number(storedNutritionCount));
+  }
 
-    const storedSleepCount = localStorage.getItem('sleepCheckedCount');
-    console.log("DEBUG: useEffect 1 - storedSleepCount:", storedSleepCount);
-    if (storedSleepCount) {
-      console.log("DEBUG: useEffect 1 - setSleepCheckedCount:", Number(storedSleepCount));
-      setSleepCheckedCount(Number(storedSleepCount));
-    }
-    console.log('DEBUG: useEffect 1 - END');
-  }, [setPhysicalHealthCheckedCount, setMentalHealthCheckedCount, setNutritionCheckedCount, setSleepCheckedCount]);
+  const storedSleepCount = localStorage.getItem('sleepCheckedCount');
+  if (storedSleepCount) {
+    setSleepCheckedCount(Number(storedSleepCount));
+  }
+}, []); // Empty dependency array means this useEffect will only run once when the component mounts
 
-  // useEffect 2
-  useEffect(() => {
-    // Update the card colors based on the retrieved counts
-    console.log('DEBUG: useEffect 2 - START');
-    const totalPhysicalCheckboxes = 6;
-    const totalMentalCheckboxes = 8;
-    const totalNutritionCheckboxes = 4;
-    const totalSleepCheckboxes = 10;
+// useEffect for updating the card colors and storing the counts in local storage whenever the counts change
+useEffect(() => {
+  const totalPhysicalCheckboxes = 6;
+  const totalMentalCheckboxes = 8;
+  const totalNutritionCheckboxes = 4;
+  const totalSleepCheckboxes = 10;
 
-    const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
-    const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
-    const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes);
-    const sleepColor = getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes);
+  const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
+  const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
+  const nutritionColor = getColorBasedOnCount(nutritionCheckedCount, totalNutritionCheckboxes);
+  const sleepColor = getColorBasedOnCount(sleepCheckedCount, totalSleepCheckboxes);
 
-    console.log('DEBUG: useEffect 2 - physicalColor:', physicalColor);
-    console.log('DEBUG: useEffect 2 - mentalColor:', mentalColor);
-    console.log('DEBUG: useEffect 2 - nutritionColor:', nutritionColor);
-    console.log('DEBUG: useEffect 2 - sleepColor:', sleepColor);
+  setCardColor("mentalCard", mentalColor);
+  setCardColor("physicalCard", physicalColor);
+  setCardColor("nutritionCard", nutritionColor);
+  setCardColor("sleepCard", sleepColor);
 
-    setCardColor("mentalCard", mentalColor);
-    setCardColor("physicalCard", physicalColor);
-    setCardColor("nutritionCard", nutritionColor);
-    setCardColor("sleepCard", sleepColor);
+  localStorage.setItem('physicalHealthCheckedCount', physicalHealthCheckedCount.toString());
+  localStorage.setItem('mentalHealthCheckedCount', mentalHealthCheckedCount.toString());
+  localStorage.setItem('nutritionCheckedCount', nutritionCheckedCount.toString());
+  localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
+}, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
 
-    // Store the counts in local storage
-    localStorage.setItem('physicalHealthCheckedCount', physicalHealthCheckedCount.toString());
-    localStorage.setItem('mentalHealthCheckedCount', mentalHealthCheckedCount.toString());
-    localStorage.setItem('nutritionCheckedCount', nutritionCheckedCount.toString());
-    localStorage.setItem('sleepCheckedCount', sleepCheckedCount.toString());
-
-    console.log('DEBUG: useEffect 2 - END');
-  }, [physicalHealthCheckedCount, mentalHealthCheckedCount, nutritionCheckedCount, sleepCheckedCount]);
-
-  // useEffect 3
+  // useEffect for retrieving the username from localStorage when the component mounts
   useEffect(() => {
     // Retrieve the username from localStorage when the component mounts
     console.log('DEBUG: useEffect 3 - START');

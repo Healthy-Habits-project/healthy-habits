@@ -179,7 +179,7 @@ useEffect(() => {
             </IonLabel>
           </IonItem>
 
-          {Object.entries(nutritionHabits).map(([key, value]) => {
+{/*           {Object.entries(nutritionHabits).map(([key, value]) => {
             const isDefaultCheckbox = initialState.hasOwnProperty(key);
             if (!isDefaultCheckbox) {
               return (
@@ -205,7 +205,7 @@ useEffect(() => {
               onIonChange={e => setCustomCheckboxText(e.detail.value!)}
             />
             <IonButton onClick={handleAddCustomCheckbox}>Add new goal</IonButton>
-          </IonItem>
+          </IonItem> */}
         </IonList>
       </IonContent>
     </IonPage>
