@@ -113,7 +113,7 @@ useEffect(() => {
             <IonCol size="6" size-sm="4">
               <IonRouterLink routerLink="/home/mental">
                 <IonCard id="mentalCard">
-                  <img alt="MentalHealth" src="/MentalHealthCard.png" />
+                  <img alt="MentalHealth" src="./mental.png" />
                   <IonCardHeader style={{ backgroundColor: "#ebc2ff" }}>
                     <IonCardTitle>Mental Health</IonCardTitle>
                   </IonCardHeader>
@@ -124,7 +124,7 @@ useEffect(() => {
             <IonCol size="6" size-sm="4">
               <IonRouterLink routerLink="/home/physical">
                 <IonCard id="physicalCard">
-                  <img alt="PhysicalHealth" src="/PhysicalHealthCard.png" height="" />
+                  <img alt="PhysicalHealth" src="./physical.png" />
                   <IonCardHeader style={{ backgroundColor: "#a873e8" }}>
                     <IonCardTitle>Physical Health</IonCardTitle>
                   </IonCardHeader>
@@ -135,7 +135,7 @@ useEffect(() => {
             <IonCol size="6" size-sm="4">
               <IonRouterLink routerLink="/home/nutrition">
                 <IonCard id="nutritionCard">
-                  <img alt="Nutrition" src="/NutritionCard.png" />
+                  <img alt="Nutrition" src="./nutrition.png" />
                   <IonCardHeader style={{ backgroundColor: "#56d1dc" }}>
                     <IonCardTitle>Nutrition</IonCardTitle>
                   </IonCardHeader>
@@ -146,7 +146,7 @@ useEffect(() => {
             <IonCol size="6" size-sm="4">
               <IonRouterLink routerLink="/home/sleep">
                 <IonCard id="sleepCard">
-                  <img alt="SleepHabits" src="/SleepCard.png" />
+                  <img alt="SleepHabits" src="./sleep.png" />
                   <IonCardHeader style={{ backgroundColor: "#5d7bd5" }}>
                     <IonCardTitle>Sleep</IonCardTitle>
                   </IonCardHeader>
