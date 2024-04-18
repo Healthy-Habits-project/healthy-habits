@@ -63,10 +63,10 @@ useEffect(() => {
 
 // useEffect for updating the card colors and storing the counts in local storage whenever the counts change
 useEffect(() => {
-  const totalPhysicalCheckboxes = 6;
-  const totalMentalCheckboxes = 8;
-  const totalNutritionCheckboxes = 4;
-  const totalSleepCheckboxes = 10;
+  const totalPhysicalCheckboxes = counts.physical;
+  const totalMentalCheckboxes = counts.mental;
+  const totalNutritionCheckboxes = counts.nutrition;
+  const totalSleepCheckboxes = counts.sleep;
 
   const physicalColor = getColorBasedOnCount(physicalHealthCheckedCount, totalPhysicalCheckboxes);
   const mentalColor = getColorBasedOnCount(mentalHealthCheckedCount, totalMentalCheckboxes);
