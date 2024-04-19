@@ -154,14 +154,14 @@ const Calendar: React.FC = () => {
         </IonModal>
       </IonContent>
 
-      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center', padding: '20px', color: 'white', borderTop: '1px solid #ccc', zIndex: 1000 }}>
+{/*       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center', padding: '20px', color: 'white', borderTop: '1px solid #ccc', zIndex: 1000 }}>
         {badgeCount > 0 && (
           <>
             <IonImg src={badgeImage} style={{ width: '50px', height: '50px' }} />
             <div style={{ marginTop: '10px' }}>You've earned {badgeCount} {badgeCount === 1 ? 'badge' : 'badges'} for positivity!</div>
           </>
         )}
-      </div>
+      </div> */}
     </IonPage>
   );
 };
