@@ -153,13 +153,6 @@ useEffect(() => {
                     <IonCardTitle>Sleep</IonCardTitle>
                   </IonCardHeader>
                 </IonCard>
-                <div>
-      <p>Mental Health Checkboxes: {counts.mental}</p>
-      <p>Physical Health Checkboxes: {counts.physical}</p>
-      <p>Nutrition Checkboxes: {counts.nutrition}</p>
-      <p>Sleep Checkboxes: {counts.sleep}</p>
-      {/* Other Home page content */}
-    </div>
               </IonRouterLink>
             </IonCol>
           </IonRow>
