@@ -118,10 +118,10 @@ const Calendar: React.FC = () => {
                       margin: '8px',
                       padding: '16px',
                       fontSize: '1.5em',
-                      // Adjust the hue interpolation based on reverse numbering
                       backgroundColor: selectedRating === number ? `hsl(${120 - (10 - number) * 13.33}, 100%, 60%)` : `hsl(${120 - (10 - number) * 13.33}, 100%, 50%)`,
                       color: selectedRating === number ? 'white' : 'black',
                       animation: selectedRating === number ? 'pop 0.5s ease' : 'none',
+                      boxShadow: selectedRating === number ? '0 0 6px 2px white, 0 0 12px 4px white' : 'none', // Decreased blur for a sharper glow
                       '--hover-opacity': 0.9,
                     }}
                     onClick={() => setSelectedRating(number)}
@@ -132,6 +132,18 @@ const Calendar: React.FC = () => {
               ))}
             </IonRow>
           </IonGrid>
+          <div style={{ margin: '16px', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.7)', padding: '16px', borderRadius: '8px' }}>
+            <p style={{ marginBottom: '16px', fontWeight: 'bold', fontSize: '1.2em' }}>Rating Legend:</p>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+              <div style={{ width: '12px', height: '12px', backgroundColor: 'hsl(0, 100%, 60%)', marginRight: '8px', borderRadius: '50%' }}></div>
+              <span style={{ fontSize: '0.9em' }}>Lowest Rating</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ width: '12px', height: '12px', backgroundColor: 'hsl(120, 100%, 60%)', marginRight: '8px', borderRadius: '50%' }}></div>
+              <span style={{ fontSize: '0.9em' }}>Highest Rating</span>
+            </div>
+          </div>
+
           <IonButton
             onClick={handleRateDay}
             style={{
@@ -146,12 +158,13 @@ const Calendar: React.FC = () => {
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
               cursor: 'pointer',
               transition: 'background-color 0.3s, transform 0.2s',
-              backgroundImage: 'linear-gradient(to right, #007bff, #00bfff)',
+              backgroundImage: 'linear-gradient(to right, darkblue, blue)',
             }}
           >
             Submit Rating
           </IonButton>
         </IonModal>
+
       </IonContent>
 
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center', padding: '20px', color: 'white', borderTop: '1px solid #ccc', zIndex: 1000 }}>
