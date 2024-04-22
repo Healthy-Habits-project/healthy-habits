@@ -49,7 +49,6 @@ setupIonicReact();
 const App: React.FC = () => (
   useTheme(),
   <ThemeProvider>
-    <CheckboxInterpreterProvider>
       <CheckboxProvider>
         <GlobalCountsProvider>
           <UserContextProvider> {/* Wrap the entire app with UserContextProvider */}
@@ -91,7 +90,6 @@ const App: React.FC = () => (
           </UserContextProvider>
         </GlobalCountsProvider>
       </CheckboxProvider>
-    </CheckboxInterpreterProvider>
   </ThemeProvider>
 );
 
