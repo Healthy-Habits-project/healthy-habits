@@ -91,3 +91,23 @@ ion-checkbox::part(container) {
   border-radius: 6px;
   border: 3px solid #6815ec;
 }
+
+/* Set default background color for ion-buttons to a lighter, slightly opaque gray */
+ion-button {
+  --background: rgba(169, 169, 169, 0.8); /* Darker gray with opacity */
+  --background-activated: rgba(150, 150, 150, 0.8); /* Even darker gray for activated state */
+  --background-focused: rgba(160, 160, 160, 0.8); /* Darker gray for focused state */
+  --background-hover: rgba(160, 160, 160, 0.8); /* Darker gray for hover state */
+  --ripple-color: #ffffff; /* White ripple effect for contrast */
+}
+
+
+/* Specific styles for selected and unselected ratings, if needed */
+ion-button.selected-rating {
+  --background: rgba(230, 230, 230, 0.9); /* Even lighter gray for selected rating */
+}
+
+ion-button.unselected-rating {
+  --background: rgba(211, 211, 211, 0.8); /* Default lighter gray for unselected rating */
+}
+

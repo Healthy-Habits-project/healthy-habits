@@ -22,7 +22,7 @@ const Calendar: React.FC = () => {
 
 
   const calculateColor = (
-    
+
     physicalHealthCheckedCount: number,
     mentalHealthCheckedCount: number,
     nutritionCheckedCount: number,
@@ -110,20 +110,20 @@ const Calendar: React.FC = () => {
         <IonModal isOpen={showRatings} onDidDismiss={() => setShowRatings(false)} className="custom-modal">
           <IonGrid style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <IonRow>
-              {Array.from({ length: 10 }, (_, i) => 1 + i).map(number => (
+              {Array.from({ length: 10 }, (_, i) => 10 - i).map(number => (
                 <IonCol size="4" sizeSm="3" sizeMd="2" key={number}>
                   <IonButton
                     expand="block"
                     style={{
                       margin: '8px',
-                      padding: '16px', // Increase padding to make buttons larger
-                      fontSize: '1.5em', // Increase font size for better clarity
-                      backgroundColor: selectedRating === number ? `hsl(${0 + (number - 1) * 12}, 100%, 60%)` : `hsl(${0 + (number - 1) * 12}, 100%, 50%)`, // Highlight selected button
-                      color: selectedRating === number ? 'white' : 'black', // Adjust text color for better visibility
-                      animation: selectedRating === number ? 'pop 0.5s ease' : 'none', // Add pop animation to highlight selected button
+                      padding: '16px',
+                      fontSize: '1.5em',
+                      // Adjust the hue interpolation based on reverse numbering
+                      backgroundColor: selectedRating === number ? `hsl(${120 - (10 - number) * 13.33}, 100%, 60%)` : `hsl(${120 - (10 - number) * 13.33}, 100%, 50%)`,
+                      color: selectedRating === number ? 'white' : 'black',
+                      animation: selectedRating === number ? 'pop 0.5s ease' : 'none',
                       '--hover-opacity': 0.9,
                     }}
-                    className={selectedRating === number ? 'selected-rating' : 'unselected-rating'}
                     onClick={() => setSelectedRating(number)}
                   >
                     {number}
