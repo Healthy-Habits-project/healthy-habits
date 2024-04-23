@@ -1,9 +1,11 @@
+/* Root variables for dark theme */
 :root {
   --ion-background-color: #2c2c2c;
   --ion-text-color: #ffffff;
   --ion-item-background: #393939;
 }
 
+/* Overriding root variables for light theme when preferred */
 @media (prefers-color-scheme: light) {
   :root {
     --ion-background-color: #f4f5f8;
@@ -12,53 +14,65 @@
   }
 }
 
+/* Applying root variables to body */
 body {
   background-color: var(--ion-background-color);
   color: var(--ion-text-color);
 }
 
+/* Styling for light theme elements */
 .ion-color-light {
   --ion-background-color: #f4f5f8;
   --ion-text-color: #000000;
   --ion-item-background: #ffffff;
-  .col-center {
-    font-size: 1rem;
-  }
-  .col-end {
-    color: black;
-  }
-  .col-start {
-    color: black;
-  }
-  ion-checkbox::part(container) {
-    border: 3px solid #000000;
-  }
-  .weekdays {
-    background-color: rgb(147, 255, 250);
-  }
 }
 
+/* Styling for center, end, and start columns in light theme */
+.ion-color-light .col-center,
+.ion-color-light .col-end,
+.ion-color-light .col-start {
+  font-size: 1rem;
+  color: #000000;
+}
+
+/* Styling for checkbox in light theme */
+.ion-color-light ion-checkbox::part(container) {
+  border: 3px solid #000000;
+}
+
+/* Styling for weekdays in light theme */
+.ion-color-light .weekdays {
+  background-color: rgb(147, 255, 250);
+}
+
+/* Styling for dark theme elements */
 .ion-color-dark {
   --ion-background-color: #2c2c2c;
   --ion-text-color: #ffffff;
   --ion-item-background: #393939;
-  .col-center {
-    color: white;
-    font-size: 1rem;
-  }
-  .weekdays {
-    background-color: #0a5db6;
-    color: white;
-    border: 1px solid white;
-  }
-
 }
 
+/* Styling for center column in dark theme */
+.ion-color-dark .col-center {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+/* Styling for weekdays in dark theme */
+.ion-color-dark .weekdays {
+  background-color: #0a5db6;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+/* Styling for checkbox */
 ion-checkbox {
   --size: 22px;
   --checkbox-background-checked: #6815ec;
-  border-color: white;
+  border-color: #ffffff;
 }
+
+/* Styling for checkbox container */
 ion-checkbox::part(container) {
   border-radius: 6px;
   border: 3px solid #6815ec;
