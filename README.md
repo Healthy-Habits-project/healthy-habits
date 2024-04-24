@@ -112,9 +112,8 @@ Install npm and the Ionic framework on your device.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Select one of the four health cards on the home page, and check any of the boxes that you accomplished for that particular day. The completion status for each page reflects on the calendar, allowing users to easily track their health habits over time.
+The calendar tab allows the user to view this data, alongside giving an overall rating for each day.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -149,7 +148,8 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+TBD
+<!-- Distributed under the MIT License. See `LICENSE.txt` for more information. -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
