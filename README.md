@@ -64,7 +64,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+<p>An app for tracking healthy habits and developing your overall health and wellbeing. This app simplifies the development of good habits through features like personalized tracking, with a built-in calendar function to view historical data and help visualize patterns. Practice mindfulness in your daily routine to promote physical and mental health.</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -77,7 +78,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
