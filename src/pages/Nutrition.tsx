@@ -198,14 +198,14 @@ useEffect(() => {
             }
           })}
 
-          <IonItem>
+{/*           <IonItem>
             <IonInput
               placeholder="Enter a new goal here"
               value={customCheckboxText}
               onIonChange={e => setCustomCheckboxText(e.detail.value!)}
             />
             <IonButton onClick={handleAddCustomCheckbox}>Add new goal</IonButton>
-          </IonItem>
+          </IonItem> */}
         </IonList>
       </IonContent>
     </IonPage>

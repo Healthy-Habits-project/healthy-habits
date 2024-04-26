@@ -237,12 +237,10 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({ dayRatings, onDaySelect
             flex: 1,
             width: `${percentage}%`,
             backgroundColor,
-            boxShadow: 'inset 0 -3px 6px rgba(0,0,0,0.2)', // Adds depth
-            margin: '2px 0', // Separates bars slightly
-            borderRadius: '5px', // Soften the edges
-            backgroundImage: `linear-gradient(to top, ${backgroundColor}, ${adjustBrightness(backgroundColor, 40)})`, // Simulates 3D lighting
-            border: '1px solid black'
+            border: '1px solid black',
+            borderRadius: '5px',
           });
+          
 
           return (
             <div style={{
