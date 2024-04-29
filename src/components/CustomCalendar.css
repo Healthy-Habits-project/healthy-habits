@@ -47,9 +47,7 @@
 
 .day-number {
   font-size: 1rem;
-  color: white;
-  text-shadow: white 1px 0 5px;
-  -webkit-text-stroke-width: 0.9px;
+  color: black;
   -webkit-text-stroke-color: black;
   position: absolute;
   z-index: 1;
